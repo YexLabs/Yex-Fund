@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
-import App from "../components/App";
+import App from "../App";
 import { Switch } from "../components/Switch";
 import { Exchange } from "../components/Exchange";
 

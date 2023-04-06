@@ -6,7 +6,7 @@ import {
 } from "connectkit";
 import { mainnet, goerli } from "@wagmi/core";
 import { Outlet, useNavigate } from "react-router-dom";
-import logo from "../logo.svg";
+import logo from "./logo.svg";
 import "./App.css";
 
 const alchemyId = process.env.ALCHEMY_ID;
