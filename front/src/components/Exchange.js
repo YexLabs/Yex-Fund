@@ -14,13 +14,33 @@ export function Exchange() {
   return (
     <div className="flex  content-center  justify-center h-full">
       <div class="card w-96 glass h-72 mt-36">
-        <figure>
-          {/* <img
+        {/* <figure>
+          <img
             src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
             alt="car!"
-          /> */}
-        </figure>
+          />
+        </figure> */}
+
         <div class="card-body">
+          <label className="label">
+            <span className="label-text text-black">SWAP</span>
+          </label>
+          <div className="rounded-lg bg-[#F0F0F0] relative">
+            <input
+              type="password"
+              placeholder="1"
+              className="input input-bordered border-none  w-full bg-[#F0F0F0]"
+            />
+            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black">
+              ↓
+            </span>
+            <hr className="mx-4 "></hr>
+            <input
+              type="password"
+              placeholder="1"
+              className="input input-bordered border-none w-full bg-[#F0F0F0]"
+            />
+          </div>
           <h2 class="card-title">Life hack</h2>
           <p>How to park your car at your garage?</p>
           <div class="card-actions justify-end">
