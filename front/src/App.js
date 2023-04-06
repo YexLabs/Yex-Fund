@@ -5,9 +5,10 @@ import {
   getDefaultClient,
 } from "connectkit";
 import { mainnet, goerli } from "@wagmi/core";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
+import { useEffect } from "react";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
@@ -22,6 +23,7 @@ const client = createClient(
 );
 
 const App = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const BuySell = () => {
     navigate("/Switch");
@@ -29,6 +31,11 @@ const App = () => {
   const ExchangeClick = () => {
     navigate("/Exchange");
   };
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/Switch");
+    }
+  }, []);
 
   return (
     <WagmiConfig client={client}>
