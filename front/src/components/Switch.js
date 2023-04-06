@@ -39,43 +39,58 @@ export function Switch() {
   };
 
   return (
-    <div id="Switch-body" className="h-full">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendTransaction?.();
-        }}
-      >
-        <input
-          aria-label="Recipient"
-          onChange={(e) => setTo(e.target.value)}
-          placeholder="0xA0Cf…251e"
-          value={to}
-        />
-        <input
-          aria-label="Amount (ether)"
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="0.05"
-          value={amount}
-        />
-        <button disabled={isLoading || !sendTransaction || !to || !amount}>
-          {isLoading ? "Sending..." : "Send"}
-        </button>
-        {isSuccess && (
-          <div>
-            Successfully sent {amount} ether to {to}
-            <div>
-              {checknetwork(chain.name) ? (
-                <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
-                  Etherscan
-                </a>
-              ) : (
-                <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
-              )}
+    <div id="Switch-body" className="h-full justify-center items-center flex">
+      <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendTransaction?.();
+            }}
+          >
+            <div class="btn-group">
+              <button className="btn btn-active">Button</button>
+              <button className="btn">Button</button>
             </div>
-          </div>
-        )}
-      </form>
+            <input
+              type="text"
+              className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
+              aria-label="Recipient"
+              onChange={(e) => setTo(e.target.value)}
+              placeholder="0xA0Cf…251e"
+              value={to}
+            />
+            <input
+              type="text"
+              className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
+              aria-label="Amount (ether)"
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="0.05"
+              value={amount}
+            />
+            <button
+              className="btn w-full"
+              disabled={isLoading || !sendTransaction || !to || !amount}
+            >
+              {isLoading ? "Sending..." : "Send"}
+            </button>
+            {isSuccess && (
+              <div>
+                Successfully sent {amount} ether to {to}
+                <div>
+                  {checknetwork(chain.name) ? (
+                    <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
+                      Etherscan
+                    </a>
+                  ) : (
+                    <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                  )}
+                </div>
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
