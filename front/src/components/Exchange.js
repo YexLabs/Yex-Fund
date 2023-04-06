@@ -12,10 +12,22 @@ export function Exchange() {
   const { write } = useContractWrite(config);
 
   return (
-    <div>
-      <button disabled={!write} onClick={() => write?.()}>
-        Mint
-      </button>
+    <div className="flex  content-center  justify-center h-full">
+      <div class="card w-96 glass h-72 mt-36">
+        <figure>
+          {/* <img
+            src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            alt="car!"
+          /> */}
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">Life hack</h2>
+          <p>How to park your car at your garage?</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">Learn now!</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

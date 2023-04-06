@@ -39,35 +39,39 @@ const App = () => {
 
   return (
     <WagmiConfig client={client}>
-      <div id="Top-line" className="flex justify-between h-16">
-        <div className="flex flex-row">
-          <div className="ml-2 flex justify-center flex-col">
-            <img className="h-8" src={logo} />
-          </div>
-          <div className="justify-center flex flex-col ml-1 text-white">
-            <div
-              className="btn btn-sm btn-ghost text-xl"
-              onClick={() => BuySell()}
-            >
-              Switch
+      <div className="flex flex-col h-screen">
+        <div id="Top-line" className="flex justify-between h-16">
+          <div className="flex flex-row">
+            <div className="ml-2 flex justify-center flex-col">
+              <img className="h-8" src={logo} />
+            </div>
+            <div className="justify-center flex flex-col ml-1 text-white">
+              <div
+                className="btn btn-sm btn-ghost text-xl"
+                onClick={() => BuySell()}
+              >
+                Switch
+              </div>
+            </div>
+            <div className="justify-center flex flex-col ml-1 text-white">
+              <div
+                className="btn btn-sm btn-ghost text-xl"
+                onClick={() => ExchangeClick()}
+              >
+                Exchange
+              </div>
             </div>
           </div>
-          <div className="justify-center flex flex-col ml-1 text-white">
-            <div
-              className="btn btn-sm btn-ghost text-xl"
-              onClick={() => ExchangeClick()}
-            >
-              Exchange
-            </div>
+          <div className="mr-5 justify-center flex flex-col">
+            <ConnectKitProvider>
+              <ConnectKitButton />
+            </ConnectKitProvider>
           </div>
         </div>
-        <div className="mr-5 justify-center flex flex-col">
-          <ConnectKitProvider>
-            <ConnectKitButton />
-          </ConnectKitProvider>
+        <div className=" flex-grow">
+          <Outlet />
         </div>
       </div>
-      <Outlet />
     </WagmiConfig>
   );
 };
