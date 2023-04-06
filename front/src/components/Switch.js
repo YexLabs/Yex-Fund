@@ -8,6 +8,8 @@ import {
 import { utils } from "ethers";
 import { useNetwork } from "wagmi";
 
+import './Switch.css'
+
 export function Switch() {
   const { chain, chains } = useNetwork();
 
@@ -28,7 +30,6 @@ export function Switch() {
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
-  console.log('a')
   const checknetwork = (networkname) => {
     if (networkname == "Ethereum") {
       return false;
@@ -38,41 +39,43 @@ export function Switch() {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        sendTransaction?.();
-      }}
-    >
-      <input
-        aria-label="Recipient"
-        onChange={(e) => setTo(e.target.value)}
-        placeholder="0xA0Cf…251e"
-        value={to}
-      />
-      <input
-        aria-label="Amount (ether)"
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="0.05"
-        value={amount}
-      />
-      <button disabled={isLoading || !sendTransaction || !to || !amount}>
-        {isLoading ? "Sending..." : "Send"}
-      </button>
-      {isSuccess && (
-        <div>
-          Successfully sent {amount} ether to {to}
+    <div id="Switch-body" className="h-full">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendTransaction?.();
+        }}
+      >
+        <input
+          aria-label="Recipient"
+          onChange={(e) => setTo(e.target.value)}
+          placeholder="0xA0Cf…251e"
+          value={to}
+        />
+        <input
+          aria-label="Amount (ether)"
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="0.05"
+          value={amount}
+        />
+        <button disabled={isLoading || !sendTransaction || !to || !amount}>
+          {isLoading ? "Sending..." : "Send"}
+        </button>
+        {isSuccess && (
           <div>
-            {checknetwork(chain.name) ? (
-              <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
-                Etherscan
-              </a>
-            ) : (
-              <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
-            )}
+            Successfully sent {amount} ether to {to}
+            <div>
+              {checknetwork(chain.name) ? (
+                <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
+                  Etherscan
+                </a>
+              ) : (
+                <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </form>
+        )}
+      </form>
+    </div>
   );
 }
