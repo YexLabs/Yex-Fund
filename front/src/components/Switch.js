@@ -28,7 +28,7 @@ export function Switch() {
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
-
+  console.log('a')
   const checknetwork = (networkname) => {
     if (networkname == "Ethereum") {
       return false;
