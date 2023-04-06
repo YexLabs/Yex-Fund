@@ -21,7 +21,6 @@ contract Swap {
     mapping(address => mapping(address => uint)) public findAtoB;
     Pool[] public pools; //交换池数组
     address public dev;  //开发者地址
-
     constructor(address _dev,address _vAddr) {
         vAddr=_vAddr;
         dev=_dev;
@@ -29,6 +28,10 @@ contract Swap {
     function setTokenFAddr(address _tokenFAddr) public{
         require(msg.sender==dev,"Permission denied");
         tokenFAddr=_tokenFAddr;     
+    }
+    function setDev(address _newdev) public{
+        require(msg.sender==dev,"Not dev");
+        dev=_newdev;
     }
 
     // 初始化池子
@@ -74,7 +77,11 @@ contract Swap {
         require(path.length >= 2, "Invalid path");
 
         if (path[0]!=tokenFAddr){
+            require(path[1]==tokenFAddr,"No tokenF");
             isXToF=true;
+        }
+        else{
+            require(path[1]!=tokenFAddr,"Both tokenF");
         }
         require(IERC20(path[0]).allowance(msg.sender, address(this)) >= amountIn, "Not enough allowance");
         values vContract= values(vAddr);
