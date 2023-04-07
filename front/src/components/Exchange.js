@@ -11,6 +11,7 @@ import {
 
 import {
   tokenD_address,
+  tokenF_address,
   buysell_address,
   vault_address,
 } from "../contracts/addresses";
@@ -72,27 +73,104 @@ export function Exchange() {
   });
 
   const approveTokenDClick = () => {
-    approveTokenDWrite?.().then((res) => {
-      console.log(res);
-      setHash(res.hash);
-    });
+
+    // approveTokenDWrite?.().then((res) => {
+    //   console.log(res);
+    //   setHash(res.hash);
+    // });
   };
 
-  // 切换状态栏的按钮组件
-  const [Buyon, setBuyon] = useState(true); // 设置默认值, 'true'为买, 'false'为卖
-
+  // ↓垃圾代码, 别看
+  // 默认选中
+  let [focusedElement, setFocusedElement] = useState(null);
   useEffect(() => {
-    document.getElementById('buy').style.background = Buyon ? 'rgb(79 70 229)' : 'rgb(61,68,81)'
-    document.getElementById('sell').style.background = Buyon ? 'rgb(61,68,81)' : 'rgb(79 70 229)'
-  }, [Buyon])
+    if (focusedElement != null) {
+      if (focusedElement.id === 'ChangeFrom') {
+        console.log('a', focusedElement)
+        document.getElementById('ClickTo').style.outline = 'none';
+        document.getElementById('ClickFrom').style.outlineStyle = 'solid';
+        document.getElementById('ClickFrom').style.outlineWidth = '1px';
+        document.getElementById('ClickFrom').style.outlineColor = '#d1d5db';
+      }
+      else if (focusedElement.id === 'ChangeTo') {
+        console.log('b', focusedElement)
+        document.getElementById('ClickFrom').style.outline = 'none';
+        document.getElementById('ClickTo').style.outlineStyle = 'solid';
+        document.getElementById('ClickTo').style.outlineWidth = '1px';
+        document.getElementById('ClickTo').style.outlineColor = '#d1d5db';
+      }
+    } else {
+      document.getElementById('ClickTo').style.outline = 'none';
+      document.getElementById('ClickFrom').style.outline = 'none';
+    }
+  }, [focusedElement])
 
-  const ToSell = () => {
-    setBuyon(false);
+  // 检测是否点击(对全界面)
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
+  const handleClick = (event) => {
+    if (isHoveringFrom === false) {
+      document.getElementById('ClickFrom').style.outline = 'none';
+    }
+    if (isHoveringTo === false) {
+      document.getElementById('ClickTo').style.outline = 'none';
+    }
+    if (!isHoveringTo && !isHoveringFrom) {
+      setFocusedElement(null);
+    }
+  };
+
+  // 检测是否悬停
+  // 对输入
+  const [isHoveringFrom, setIsHoveringFrom] = useState(false);
+  function handleMouseEnterFrom() {
+    setIsHoveringFrom(true);
   }
-  const ToBuy = () => {
-    setBuyon(true);
-    // console.log('AfterBuy', Buyon)
+  function handleMouseLeaveFrom() {
+    setIsHoveringFrom(false);
   }
+  // 对输出
+  const [isHoveringTo, setIsHoveringTo] = useState(false);
+  function handleMouseEnterTo() {
+    setIsHoveringTo(true);
+  }
+  function handleMouseLeaveTo() {
+    setIsHoveringTo(false);
+  }
+  // ↑至此垃圾代码结束
+
+  // 根据选中状态不同, 改变From状态值
+  const [selectValueFrom, setSelectValueFrom] = useState(tokenD_address);
+  const handleChangeFrom = (event) => {
+    if (selectValueTo === event.target.value) {
+      setSelectValueTo(selectValueFrom);
+    }
+    setSelectValueFrom(event.target.value);
+  }
+
+  // 根据选中状态不同, 改变To状态值
+  const [selectValueTo, setSelectValueTo] = useState(tokenF_address);
+  const handleChangeTo = (event) => {
+    if (selectValueFrom === event.target.value) {
+      setSelectValueFrom(selectValueTo);
+    }
+    setSelectValueTo(event.target.value);
+  }
+
+  // option选项
+  let [optionsfrom, setOptionsfrom] = useState([
+    { value: tokenD_address, label: 'TST', disabled: false },
+    { value: tokenF_address, label: 'GLD', disabled: false },
+  ])
+
+  let [optionsto, setOptionsTo] = useState([
+    { value: tokenF_address, label: 'GLD', disabled: false },
+    { value: tokenD_address, label: 'TST', disabled: false },
+  ])
 
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
@@ -103,28 +181,53 @@ export function Exchange() {
         <div className="flex  content-center  justify-center h-full">
           <div id="exchange" class="card w-96 h-96 bg-base-100 shadow-xl">
             <div class="card-body p-7">
-              <div id="button-group" className="mb-2">
-                <button id="buy" className="h-9 w-20 bg-indigo-600 rounded-l-lg text-white text-xl pl-0.5 duration-100" onClick={() => ToBuy()}>Buy</button>
-                <button id="sell" className="h-9 w-20 bg-[#3d4451] rounded-r-lg text-white text-xl pr-0.5 duration-100" onClick={() => ToSell()}>Sell</button>
-              </div>
+              <div className="bg-[#3d4451] border-black rounded-lg w-24 h-9 mb-2 text-xl font-sans text-white justify-center items-center flex">Convert</div>
               <div className="rounded-lg relative">
-                <input
-                    id="ChangeFrom"
-                    type="password"
-                    placeholder="Token you have"
-                    className="input input-bordered border-none h-16 w-full bg-[#F0F0F0] mb-2"
-                />
+                <div
+                    id="ClickFrom"
+                    className="w-full rounded-lg border-none h-16 bg-[#F0F0F0] mb-2 hover:outline hover:outline-1 hover:outline-[#d1d5db]"
+                    onMouseEnter={handleMouseEnterFrom}
+                    onMouseLeave={handleMouseLeaveFrom}
+                >
+                  <input
+                      id="ChangeFrom"
+                      placeholder="Token you have"
+                      className="input input-bordered border-none h-16 bg-[#F0F0F0] mb-2 focus:outline-none"
+                      onFocus={(e) => setFocusedElement(e.target)}
+                  />
+                  <select className="select focus:outline focus:outline-1" value={selectValueFrom} onChange={handleChangeFrom}>
+                    {optionsfrom.map(option => (
+                      <option key={option.value} value={option.value} disabled={option.disabled}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <div id="From-To-Change">
                   <button className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 h-8 w-8 border-4 bg-[#F0F0F0] border-white rounded-lg border-color text-slate-400">
                     ↓
                   </button>
                 </div>
-                {/*<hr className="mx-4 "></hr>*/}
-                <input
-                    id="ChangeTo"
-                    className="input input-bordered border-none h-16 w-full bg-[#F0F0F0] focus:outline-none"
-                    type="password"
-                    placeholder="Token you want"/>
+                <div
+                    id="ClickTo"
+                    className="w-full rounded-lg border-none h-16 bg-[#F0F0F0] mb-2 hover:outline hover:outline-1 hover:outline-[#d1d5db]"
+                    onMouseEnter={handleMouseEnterTo}
+                    onMouseLeave={handleMouseLeaveTo}
+                >
+                  <input
+                      id="ChangeTo"
+                      className="input input-bordered border-none h-16 bg-[#F0F0F0] focus:outline-none"
+                      placeholder="Token you want"
+                      onFocus={(e) => setFocusedElement(e.target)}
+                  />
+                  <select className="select focus:outline focus:outline-1" value={selectValueTo} onChange={handleChangeTo}>
+                    {optionsto.map(option => (
+                        <option key={option.value} value={option.value} disabled={option.disabled}>
+                          {option.label}
+                        </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div className="card-actions justify-end mt-2">
                 <button

@@ -1,5 +1,5 @@
 #Switch-body{
-    background: linear-gradient(30deg, rgba(23,38,183,1) -80%, rgba(0,172,193,1) 100%);
+    background: linear-gradient(30deg, rgba(23,38,183,1) -80%, rgb(0, 172, 193) 100%);
     /*background: linear-gradient(#2b1055, #7597de);*/
     /*min-height: 100vh;*/
 }
@@ -33,16 +33,16 @@ section img#mountain_front{
     height: 310px;
 }
 
-#ChangeFrom:focus {
-    border-style: solid;
-    border-color: #d1d5db;
-    outline: 2px solid transparent;
-    outline-offset: 2px
-}
+/*#ChangeFrom:focus {*/
+/*    border-style: solid;*/
+/*    border-color: #d1d5db;*/
+/*    outline: 2px solid transparent;*/
+/*    outline-offset: 2px*/
+/*}*/
 
-#ChangeTo:focus {
-    border-style: solid;
-    border-color: #d1d5db;
-    outline: 2px solid transparent;
-    outline-offset: 2px
-}
+/*#ChangeTo:focus {*/
+/*    border-style: solid;*/
+/*    border-color: #d1d5db;*/
+/*    outline: 2px solid transparent;*/
+/*    outline-offset: 2px*/
+/*}*/
