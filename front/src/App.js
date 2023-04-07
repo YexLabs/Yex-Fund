@@ -1,10 +1,11 @@
-import { WagmiConfig, createClient } from "wagmi";
+import { WagmiConfig, createClient, configureChains } from "wagmi";
 import {
   ConnectKitProvider,
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import { mainnet, goerli } from "@wagmi/core";
+import { mainnet, goerli, InjectedConnector } from "@wagmi/core";
+import { publicProvider } from "wagmi/providers/public";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
@@ -12,15 +13,19 @@ import { useEffect } from "react";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
-const chains = [goerli, mainnet];
-
-const client = createClient(
-  getDefaultClient({
-    appName: "GLD DeFi",
-    alchemyId,
-    chains,
-  })
+const { chains, provider } = configureChains(
+  [goerli],
+  [
+    // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    publicProvider(),
+  ]
 );
+
+const client = createClient({
+  autoConnect: true,
+  connectors: [new InjectedConnector({ chains })],
+  provider,
+});
 
 const App = () => {
   const location = useLocation();

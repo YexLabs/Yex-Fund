@@ -7,40 +7,44 @@ import {
   erc20ABI,
   useAccount,
 } from "wagmi";
-import { MyTokenAbi } from "../config";
-import { tokenD_address, exchange_address } from "../contracts/addresses";
+
+import {
+  tokenD_address,
+  buysell_address,
+  vault_address,
+} from "../contracts/addresses";
 
 export function Exchange() {
   const { address } = useAccount();
   const [approvedAmount, setApprovedAmount] = React.useState(0);
-  // 获取已授权的token数量
-  const getUsdtApproved = useContractRead({
+  // 获取vault已授权的tokenD数量
+  const getTokenDApproved = useContractRead({
     address: tokenD_address,
     abi: erc20ABI,
     functionName: "allowance",
-    args: [address, exchange_address],
+    args: [address, vault_address],
     watch: true,
     onSuccess(data) {
-      console.log("GetUsdtApproved", data);
+      console.log("GetTokenDApproved", data);
       const amount = ethers.utils.formatUnits(data, "ether");
       setApprovedAmount(amount);
     },
   });
   // tokenD授权config
-  const { config: approveConfig } = usePrepareContractWrite({
+  const { config: approveTokenDConfig } = usePrepareContractWrite({
     address: tokenD_address,
     abi: erc20ABI,
     functionName: "approve",
-    args: [exchange_address, ethers.utils.parseEther("100")],
+    args: [buysell_address, ethers.utils.parseEther("100")],
   });
   // tokenD授权
   const {
-    data: approveData,
+    data: approveTokenDData,
     isLoading,
     isSuccess,
-    writeAsync: approveWrite,
+    writeAsync: approveTokenDWrite,
   } = useContractWrite({
-    ...approveConfig,
+    ...approveTokenDConfig,
     onError(error) {
       console.log("Error", error);
     },
