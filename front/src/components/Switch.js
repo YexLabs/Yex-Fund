@@ -1,17 +1,13 @@
 import * as React from "react";
-import { useDebounce } from "use-debounce";
-import {
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction,
-} from "wagmi";
-import { utils } from "ethers";
-import { useNetwork } from "wagmi";
+import {useEffect, useState} from "react";
+import {useDebounce} from "use-debounce";
+import {useNetwork, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction,} from "wagmi";
+import {utils} from "ethers";
 
 import './Switch.css'
 
 export function Switch() {
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
 
   const [to, setTo] = React.useState("");
   const [debouncedTo] = useDebounce(to, 500);
@@ -31,27 +27,43 @@ export function Switch() {
     hash: data?.hash,
   });
   const checknetwork = (networkname) => {
-    if (networkname == "Ethereum") {
+    if (networkname === "Ethereum") {
       return false;
     } else {
       return true;
     }
   };
 
+  // 切换状态栏的按钮组件
+  const [Buyon, setBuyon] = useState(true); // 设置默认值, 'true'为买, 'false'为卖
+
+  useEffect(() => {
+    document.getElementById('buy').style.background = Buyon ? 'rgb(79 70 229)' : 'rgb(61,68,81)'
+    document.getElementById('sell').style.background = Buyon ? 'rgb(61,68,81)' : 'rgb(79 70 229)'
+  }, [Buyon])
+
+  const ToSell = () => {
+    setBuyon(false);
+  }
+  const ToBuy = () => {
+    setBuyon(true);
+    // console.log('AfterBuy', Buyon)
+  }
+
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <div class="card-body">
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body p-7" >
+          <div id="button-group" className="mb-3">
+            <button id="buy" className="h-11 w-16 bg-indigo-600 rounded-l-lg text-white text-xl pl-0.5 duration-100" onClick={() => ToBuy()}>Buy</button>
+            <button id="sell" className="h-11 w-16 bg-[#3d4451] rounded-r-lg text-white text-xl pr-0.5 duration-100" onClick={() => ToSell()}>Sell</button>
+          </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
               sendTransaction?.();
             }}
           >
-            <div class="btn-group">
-              <button className="btn btn-active">Button</button>
-              <button className="btn">Button</button>
-            </div>
             <input
               type="text"
               className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
@@ -68,12 +80,19 @@ export function Switch() {
               placeholder="0.05"
               value={amount}
             />
-            <button
-              className="btn w-full"
-              disabled={isLoading || !sendTransaction || !to || !amount}
-            >
-              {isLoading ? "Sending..." : "Send"}
-            </button>
+            {Buyon
+                ? <button
+                    className="btn w-full"
+                    disabled={isLoading || !sendTransaction || !to || !amount}
+                    >
+                    {isLoading ? "Buying..." : "Buy"}
+                  </button>
+                : <button
+                    className="btn w-full"
+                    disabled={isLoading || !sendTransaction || !to || !amount}
+                >
+                  {isLoading ? "Selling..." : "Sell"}
+                </button> }
             {isSuccess && (
               <div>
                 Successfully sent {amount} ether to {to}
