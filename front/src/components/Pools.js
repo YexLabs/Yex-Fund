@@ -1,23 +1,88 @@
 import React, { useEffect, useState } from "react";
 import { Card, Avatar } from "antd";
 import ethicon from "./images/pools/eth.png";
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
+  erc20ABI,
+  useAccount,
+} from "wagmi";
+
+import { pools_address } from "../contracts/addresses";
+import { pools_abi } from "../contracts/abis";
+import { ethers } from "ethers";
 
 const { Meta } = Card;
 
 export function Pools() {
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
+  const { address } = useAccount();
+  const [tokenA, setTokenA] = useState("");
+  const [tokenB, setTokenB] = useState("");
+  const [tokenASymbol, setTokenASymbol] = useState("");
+  const [tokenBSymbol, setTokenBSymbol] = useState("");
+  const [tokenAAmount, setTokenAAmount] = useState(0);
+  const [tokenBAmount, setTokenBAmount] = useState(0);
+  // 获取vault已授权的tokenD数量
+  const getTokenDApproved = useContractRead({
+    address: pools_address,
+    abi: pools_abi,
+    functionName: "pools",
+    args: [0],
+    watch: true,
+    onSuccess(data) {
+      console.log("GetLp", data);
+      setTokenA(data[0]);
+      setTokenB(data[1]);
+      setTokenAAmount(ethers.utils.formatUnits(data[2], "ether"));
+      setTokenBAmount(ethers.utils.formatUnits(data[3], "ether"));
+      // const amount = ethers.utils.formatUnits(data, "ether");
+      // setApprovedAmount(amount);
+    },
+  });
+
+  // 获取tokenA的symbol
+  const getTokenASymbol = useContractRead({
+    address: tokenA,
+    abi: erc20ABI,
+    functionName: "symbol",
+    onSuccess(data) {
+      console.log("TokenA name:", data);
+      setTokenASymbol(data);
+    },
+  });
+  // 获取tokenB的symbol
+  const getTokenBSymbol = useContractRead({
+    address: tokenB,
+    abi: erc20ABI,
+    functionName: "symbol",
+    onSuccess(data) {
+      console.log("TokenB name:", data);
+      setTokenBSymbol(data);
       setLoading(false);
-    }, 2000);
-  }, []);
+    },
+  });
+
+  // useEffect(() => {
+  //   if (
+  //     tokenA != "" &&
+  //     tokenB != "" &&
+  //     tokenASymbol != "" &&
+  //     tokenBSymbol != ""
+  //   ) {
+  //     setLoading(false);
+  //   }
+  // }, [tokenASymbol]);
+
   return (
     <div>
       <div className="ml-4">
         <Card
           style={{
             width: 220,
-            height: 270,
+            height: 250,
             marginTop: 16,
           }}
           cover={
@@ -31,11 +96,11 @@ export function Pools() {
         >
           <Meta
             avatar={<Avatar src={ethicon} />}
-            title="TWT-GLP  LP"
+            title={`${tokenASymbol} - ${tokenBSymbol}`}
             description={
-              <div className="mt-4">
-                <p>TWT: 1000</p>
-                <p>GLP: 1000</p>
+              <div className="mt-2">
+                <p>{`${tokenASymbol}: ${tokenAAmount * 10 ** 18}`}</p>
+                <p>{`${tokenBSymbol}: ${tokenBAmount * 10 ** 18}`}</p>
               </div>
             }
           />
