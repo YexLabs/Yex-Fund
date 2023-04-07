@@ -28,25 +28,25 @@ contract Panel is Ownable {
 
     // 开放申购
     // @xiaochen
-    function OTC_openSubscribe() public onlyOwner {
+    function otc_openSubscribe() public onlyOwner {
         otc.openSubscribe();
     }
 
     // 开放赎回
     // @xiaochen
-    function OTC_openRedeem() public onlyOwner {
+    function otc_openRedeem() public onlyOwner {
         otc.openRedeem();
     }
 
     // 关闭申购
     // @xiaochen
-    function OTC_closeSubscribe() public onlyOwner {
+    function otc_closeSubscribe() public onlyOwner {
         otc.closeSubscribe();
     }
 
     // 关闭赎回
     // @xiaochen
-    function OTC_closeRedeem() public onlyOwner {
+    function otc_closeRedeem() public onlyOwner {
         otc.closeRedeem();
     }
 
@@ -69,4 +69,21 @@ contract Panel is Ownable {
     }
 
     // example 操作创建pool: pool创建，vault给token授权
+
+    // 创建pool
+    // @xiaochen
+    function pools_create(
+        IERC20 token,
+        uint256 _amount,
+        uint256 _f_amount,
+        uint256 _feeRate
+    ) public onlyOwner {
+        pools.createLiquidity(token, _amount, _f_amount, _feeRate);
+    }
+
+    // 销毁pool
+    // @xiaochen
+    function pools_destroy(IERC20 token) public onlyOwner {
+        pools.destroyLiquidity(token);
+    }
 }
