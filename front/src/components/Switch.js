@@ -166,10 +166,15 @@ export function Switch() {
   };
 
   const sellClick = () => {
-    withdrawTokenDWrite?.().then((res) => {
-      console.log(res);
-      setHash(res.hash);
-    });
+    setIsLoading(true);
+    withdrawTokenDWrite?.()
+      .then((res) => {
+        console.log(res);
+        setHash(res.hash);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
   };
 
   return (
