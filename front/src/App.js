@@ -1,11 +1,10 @@
-import { WagmiConfig, createClient, configureChains } from "wagmi";
+import { WagmiConfig, createClient } from "wagmi";
 import {
   ConnectKitProvider,
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import { mainnet, goerli, InjectedConnector } from "@wagmi/core";
-import { publicProvider } from "wagmi/providers/public";
+import { mainnet, goerli } from "@wagmi/core";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
@@ -13,19 +12,15 @@ import { useEffect } from "react";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
-const { chains, provider } = configureChains(
-  [goerli],
-  [
-    // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
-    publicProvider(),
-  ]
-);
+const chains = [goerli, mainnet];
 
-const client = createClient({
-  autoConnect: true,
-  connectors: [new InjectedConnector({ chains })],
-  provider,
-});
+const client = createClient(
+  getDefaultClient({
+    appName: "GLD DeFi",
+    alchemyId,
+    chains,
+  })
+);
 
 const App = () => {
   const location = useLocation();
@@ -44,7 +39,7 @@ const App = () => {
 
   return (
     <WagmiConfig client={client}>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col">
         <div id="Top-line" className="flex justify-between h-16">
           <div className="flex flex-row">
             <div className="ml-2 flex justify-center flex-col">
