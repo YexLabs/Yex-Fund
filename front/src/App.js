@@ -34,6 +34,9 @@ const App = () => {
   const PoolsClick = () => {
     navigate("/Pools");
   };
+  const FoundClick = () => {
+    navigate("/Found");
+  };
   useEffect(() => {
     if (location.pathname === "/") {
       navigate("/Switch");
@@ -70,6 +73,14 @@ const App = () => {
                 onClick={() => PoolsClick()}
               >
                 POOLS
+              </div>
+            </div>
+            <div className="justify-center flex flex-col ml-1 text-white">
+              <div
+                className="btn btn-sm btn-ghost text-xl"
+                onClick={() => FoundClick()}
+              >
+                FOUND
               </div>
             </div>
           </div>

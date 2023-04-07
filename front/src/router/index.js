@@ -4,6 +4,7 @@ import App from "../App";
 import { Switch } from "../components/Switch";
 import { Exchange } from "../components/Exchange";
 import { Pools } from "../components/Pools";
+import { Found } from "../components/Found";
 
 export function BaseRoutes() {
   return (
@@ -13,6 +14,7 @@ export function BaseRoutes() {
           <Route path="/Switch" element={<Switch />} />
           <Route path="/Exchange" element={<Exchange />} />
           <Route path="/Pools" element={<Pools />} />
+          <Route path="/Found" element={<Found />} />
         </Route>
       </Routes>
     </Router>
