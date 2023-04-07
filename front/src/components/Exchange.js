@@ -1,15 +1,50 @@
+import { ethers } from "ethers";
 import * as React from "react";
-import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+  erc20ABI,
+  useAccount,
+} from "wagmi";
 import { MyTokenAbi } from "../config";
+import { tokenD_address, exchange_address } from "../contracts/addresses";
 
 export function Exchange() {
-  const { config } = usePrepareContractWrite({
-    address: "0xeEE680A857679Dec72864c40C3aA521dDFED6b77",
-    abi: MyTokenAbi,
-    functionName: "Mint",
-    args: ["0x36De702a11C07777443093a58226f07dEea6dFc8"],
+  const { address } = useAccount();
+  const [approvedAmount, setApprovedAmount] = React.useState(0);
+  // 获取已授权的token数量
+  const getUsdtApproved = useContractRead({
+    address: tokenD_address,
+    abi: erc20ABI,
+    functionName: "allowance",
+    args: [address, exchange_address],
+    watch: true,
+    onSuccess(data) {
+      console.log("GetUsdtApproved", data);
+      const amount = ethers.utils.formatUnits(data, "ether");
+      setApprovedAmount(amount);
+    },
   });
-  const { write } = useContractWrite(config);
+  // tokenD授权config
+  const { config: approveConfig } = usePrepareContractWrite({
+    address: tokenD_address,
+    abi: erc20ABI,
+    functionName: "approve",
+    args: [exchange_address, ethers.utils.parseEther("100")],
+  });
+  // tokenD授权
+  const {
+    data: approveData,
+    isLoading,
+    isSuccess,
+    writeAsync: approveWrite,
+  } = useContractWrite({
+    ...approveConfig,
+    onError(error) {
+      console.log("Error", error);
+    },
+  });
 
   return (
     <div className="flex  content-center  justify-center h-full">
