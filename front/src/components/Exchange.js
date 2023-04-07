@@ -4,6 +4,7 @@ import {
   useContractRead,
   usePrepareContractWrite,
   useContractWrite,
+  useWaitForTransaction,
   erc20ABI,
   useAccount,
 } from "wagmi";
@@ -16,7 +17,18 @@ import {
 
 export function Exchange() {
   const { address } = useAccount();
+  const [hash, setHash] = React.useState("");
   const [approvedAmount, setApprovedAmount] = React.useState(0);
+
+  const confirmation = useWaitForTransaction({
+    hash: hash,
+    onSuccess(data) {
+      console.log("Success", data);
+      alert("交易成功");
+      window.location.reload();
+      // alert('交易成功')
+    },
+  });
 
   // 获取vault已授权的tokenD数量
   const getTokenDApproved = useContractRead({
@@ -54,6 +66,7 @@ export function Exchange() {
   const approveTokenDClick = () => {
     approveTokenDWrite?.().then((res) => {
       console.log(res);
+      setHash(res.hash);
     });
   };
 
@@ -94,7 +107,7 @@ export function Exchange() {
               class="btn btn-primary"
               onClick={() => approveTokenDClick()}
             >
-              Learn now!
+              Approve!
             </button>
           </div>
         </div>
