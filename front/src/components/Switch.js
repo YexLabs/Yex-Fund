@@ -5,6 +5,10 @@ import {useNetwork, usePrepareSendTransaction, useSendTransaction, useWaitForTra
 import {utils} from "ethers";
 
 import './Switch.css'
+import stars from './images/switch/stars.png'
+import moon from './images/switch/moon.png'
+import m_behind from './images/switch/mountains_behind.png'
+import m_front from './images/switch/mountains_front.png'
 
 export function Switch() {
   const { chain } = useNetwork();
@@ -52,64 +56,70 @@ export function Switch() {
 
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body p-7" >
-          <div id="button-group" className="mb-3">
-            <button id="buy" className="h-11 w-16 bg-indigo-600 rounded-l-lg text-white text-xl pl-0.5 duration-100" onClick={() => ToBuy()}>Buy</button>
-            <button id="sell" className="h-11 w-16 bg-[#3d4451] rounded-r-lg text-white text-xl pr-0.5 duration-100" onClick={() => ToSell()}>Sell</button>
-          </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              sendTransaction?.();
-            }}
-          >
-            <input
-              type="text"
-              className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
-              aria-label="Recipient"
-              onChange={(e) => setTo(e.target.value)}
-              placeholder="0xA0Cf…251e"
-              value={to}
-            />
-            <input
-              type="text"
-              className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
-              aria-label="Amount (ether)"
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0.05"
-              value={amount}
-            />
-            {Buyon
-                ? <button
-                    className="btn w-full"
-                    disabled={isLoading || !sendTransaction || !to || !amount}
-                    >
+      <section>
+        <img src={stars} alt="" id="stars" />
+        <img src={moon} alt="" id="moon" />
+        <img src={m_behind} alt="" id="mountain_behind" />
+        <div id="BuySell" className="card w-96 bg-base-100 shadow-xl">
+          <div className="card-body p-7" >
+            <div id="button-group" className="mb-3">
+              <button id="buy" className="h-11 w-16 bg-indigo-600 rounded-l-lg text-white text-xl pl-0.5 duration-100" onClick={() => ToBuy()}>Buy</button>
+              <button id="sell" className="h-11 w-16 bg-[#3d4451] rounded-r-lg text-white text-xl pr-0.5 duration-100" onClick={() => ToSell()}>Sell</button>
+            </div>
+            <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendTransaction?.();
+                }}
+            >
+              <input
+                  type="text"
+                  className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
+                  aria-label="Recipient"
+                  onChange={(e) => setTo(e.target.value)}
+                  placeholder="0xA0Cf…251e"
+                  value={to}
+              />
+              <input
+                  type="text"
+                  className="input bg-slate-100 min-h-16 w-full max-w-xs mb-5"
+                  aria-label="Amount (ether)"
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="0.05"
+                  value={amount}
+              />
+              {Buyon
+                  ? <button
+                      className="btn w-full"
+                      disabled={isLoading || !sendTransaction || !to || !amount}
+                  >
                     {isLoading ? "Buying..." : "Buy"}
                   </button>
-                : <button
-                    className="btn w-full"
-                    disabled={isLoading || !sendTransaction || !to || !amount}
-                >
-                  {isLoading ? "Selling..." : "Sell"}
-                </button> }
-            {isSuccess && (
-              <div>
-                Successfully sent {amount} ether to {to}
-                <div>
-                  {checknetwork(chain.name) ? (
-                    <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
-                      Etherscan
-                    </a>
-                  ) : (
-                    <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
-                  )}
-                </div>
-              </div>
-            )}
-          </form>
+                  : <button
+                      className="btn w-full"
+                      disabled={isLoading || !sendTransaction || !to || !amount}
+                  >
+                    {isLoading ? "Selling..." : "Sell"}
+                  </button> }
+              {isSuccess && (
+                  <div>
+                    Successfully sent {amount} ether to {to}
+                    <div>
+                      {checknetwork(chain.name) ? (
+                          <a href={`https://${chain.name}.etherscan.io/tx/${data?.hash}`}>
+                            Etherscan
+                          </a>
+                      ) : (
+                          <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                      )}
+                    </div>
+                  </div>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
+        <img src={m_front} alt="" id="mountain_front" />
+      </section>
     </div>
   );
 }
