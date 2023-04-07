@@ -143,7 +143,8 @@ export function Switch() {
 
   const buyClick = () => {
     setIsLoading(true);
-    if (approvedAmount < amountRef.current?.value) {
+    console.log("buy");
+    if (approvedAmount < Number(amountRef.current?.value)) {
       approveTokenDWrite?.()
         .then((res) => {
           console.log(res);
