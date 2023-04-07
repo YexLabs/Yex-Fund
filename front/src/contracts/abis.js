@@ -815,8 +815,8 @@ export const values_abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_dev",
+        internalType: "contract IF",
+        name: "_f",
         type: "address",
       },
     ],
@@ -824,29 +824,177 @@ export const values_abi = [
     type: "constructor",
   },
   {
+    anonymous: false,
     inputs: [
       {
-        internalType: "uint256",
-        name: "amountIn",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amountOut",
-        type: "uint256",
-      },
-      {
+        indexed: true,
         internalType: "address",
-        name: "XOwner",
+        name: "previousOwner",
         type: "address",
       },
       {
+        indexed: true,
         internalType: "address",
-        name: "tokenX",
+        name: "newOwner",
         type: "address",
       },
     ],
-    name: "depositTransfer",
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "PermitAuthorized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "PermitRevoked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Receive",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Transfer",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "authorizePermit",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "f",
+    outputs: [
+      {
+        internalType: "contract IF",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokePermit",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -855,83 +1003,16 @@ export const values_abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_newdev",
-        type: "address",
-      },
-    ],
-    name: "setDev",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_AddrF",
-        type: "address",
-      },
-    ],
-    name: "setFAddr",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_subscribe",
-        type: "address",
-      },
-    ],
-    name: "setSubscribe",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_swap",
-        type: "address",
-      },
-    ],
-    name: "setSwap",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "XOwner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "tokenX",
+        name: "to",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "amountX",
+        name: "amount",
         type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amountF",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "isXToF",
-        type: "bool",
       },
     ],
-    name: "swapTransfer",
+    name: "transferF",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -939,27 +1020,35 @@ export const values_abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "amountIn",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amountOut",
-        type: "uint256",
-      },
-      {
         internalType: "address",
-        name: "XOwner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "tokenX",
+        name: "newOwner",
         type: "address",
       },
     ],
-    name: "withdrawTransfer",
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "transferToken",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -970,54 +1059,8 @@ export const buysell_abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_tokenX",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "deposit",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_newdev",
-        type: "address",
-      },
-    ],
-    name: "setDev",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_feePercent",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_FAddr",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_dev",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_vAddr",
+        internalType: "contract IVault",
+        name: "_vault",
         type: "address",
       },
     ],
@@ -1025,10 +1068,70 @@ export const buysell_abi = [
     type: "constructor",
   },
   {
+    anonymous: false,
     inputs: [
       {
+        indexed: true,
         internalType: "address",
-        name: "_tokenX",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "closeRedeem",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "closeSubscribe",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "openRedeem",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "openSubscribe",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
         type: "address",
       },
       {
@@ -1037,19 +1140,39 @@ export const buysell_abi = [
         type: "uint256",
       },
     ],
-    name: "withdraw",
+    name: "redeem",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "feePercent",
+    name: "redeemable",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "bool",
         name: "",
-        type: "uint256",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "subscribable",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -1058,20 +1181,32 @@ export const buysell_abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
+        internalType: "contract IERC20",
+        name: "token",
         type: "address",
       },
-    ],
-    name: "tokens",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "subscribe",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ];
@@ -1080,13 +1215,13 @@ export const pools_abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_dev",
+        internalType: "contract IVault",
+        name: "_vault",
         type: "address",
       },
       {
-        internalType: "address",
-        name: "_vAddr",
+        internalType: "contract IERC20",
+        name: "_f",
         type: "address",
       },
     ],
@@ -1094,134 +1229,39 @@ export const pools_abi = [
     type: "constructor",
   },
   {
+    anonymous: false,
     inputs: [
       {
-        internalType: "uint256",
-        name: "amountIn",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "path",
-        type: "address[]",
-      },
-    ],
-    name: "calculateNetAmountOut",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "dev",
-    outputs: [
-      {
+        indexed: true,
         internalType: "address",
-        name: "",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
         type: "address",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    name: "OwnershipTransferred",
+    type: "event",
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "findAtoB",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_tokenA",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenB",
-        type: "address",
-      },
-    ],
-    name: "getLpIndex",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_tokenA",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenB",
-        type: "address",
-      },
-    ],
-    name: "getPrice",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_tokenA",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenB",
+        internalType: "contract IERC20",
+        name: "token",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "_tokenA_amount",
+        name: "_amount",
         type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "_tokenB_amount",
+        name: "_f_amount",
         type: "uint256",
       },
       {
@@ -1230,9 +1270,35 @@ export const pools_abi = [
         type: "uint256",
       },
     ],
-    name: "initNewPool",
+    name: "createLiquidity",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+    ],
+    name: "destroyLiquidity",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "f",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1243,26 +1309,26 @@ export const pools_abi = [
         type: "uint256",
       },
     ],
-    name: "pools",
+    name: "getPool",
     outputs: [
       {
-        internalType: "address",
-        name: "tokenA",
+        internalType: "contract IERC20",
+        name: "token",
         type: "address",
       },
       {
-        internalType: "address",
-        name: "tokenB",
+        internalType: "contract IERC20",
+        name: "f",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "tokenA_amount",
+        name: "token_amount",
         type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "tokenB_amount",
+        name: "f_amount",
         type: "uint256",
       },
       {
@@ -1277,25 +1343,43 @@ export const pools_abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_newdev",
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "contract IERC20",
+        name: "",
         type: "address",
       },
     ],
-    name: "setDev",
-    outputs: [],
-    stateMutability: "nonpayable",
+    name: "getPoolId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "owner",
+    outputs: [
       {
         internalType: "address",
-        name: "_tokenFAddr",
+        name: "",
         type: "address",
       },
     ],
-    name: "setTokenFAddr",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1304,23 +1388,59 @@ export const pools_abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "amountIn",
+        name: "_amountIn",
         type: "uint256",
       },
       {
         internalType: "address[]",
-        name: "path",
+        name: "_path",
         type: "address[]",
       },
       {
         internalType: "address",
-        name: "to",
+        name: "_to",
         type: "address",
       },
     ],
     name: "swap",
     outputs: [],
-    stateMutability: "payable",
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_f_amount",
+        type: "uint256",
+      },
+    ],
+    name: "updateLiquidity",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ];

@@ -88,7 +88,7 @@ export function Switch() {
     abi: erc20ABI,
     functionName: "approve",
     args: [
-      vault_address,
+      buysell_address,
       ethers.utils.parseEther(amountRef.current?.value || "0"),
     ],
   });
@@ -107,7 +107,7 @@ export function Switch() {
   const { config: depositTokenDConfig } = usePrepareContractWrite({
     address: buysell_address,
     abi: buysell_abi,
-    functionName: "deposit",
+    functionName: "subscribe",
     args: [
       tokenD_address,
       ethers.utils.parseEther(amountRef.current?.value || "0"),
@@ -126,7 +126,7 @@ export function Switch() {
   const { config: withdrawTokenDConfig } = usePrepareContractWrite({
     address: buysell_address,
     abi: buysell_abi,
-    functionName: "withdraw",
+    functionName: "redeem",
     args: [
       tokenD_address,
       ethers.utils.parseEther(amountRef.current?.value || "0"),
