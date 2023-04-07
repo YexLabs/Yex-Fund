@@ -72,40 +72,48 @@ contract Pools is IPools, Ownable {
 
     // 根据恒定K算法计算收到的代币A和付出的代币B
     function swap(
-        uint256 amountIn,
-        address[] calldata path,
-        address to
+        uint256 _amountIn,
+        address[] calldata _path,
+        address _to
     ) public {
-        bool isXToF;
-        uint256 netAmountOut;
-        require(path.length >= 2, "Invalid path");
+        require(_path.length >= 2, "Pools: invalid path");
+        IERC20 inputToken = IERC20(_path[0]);
 
-        // if (path[0] != tokenFAddr) {
-        //     require(path[1] == tokenFAddr, "No tokenF");
-        //     isXToF = true;
-        // } else {
-        //     require(path[1] != tokenFAddr, "Both tokenF");
-        // }
-        // require(
-        //     IERC20(path[0]).allowance(msg.sender, vAddr) >= amountIn,
-        //     "Not enough allowance"
-        // );
-        // vault vContract = vault(vAddr);
+        if (inputToken != f) {
+            inputToken.transferFrom(msg.sender, address(vault), _amountIn);
+        } else {
+            vault.f().burn(msg.sender, _amountIn);
+        }
 
-        // // tokenA.transferFrom(msg.sender, address(this), amountIn);
+        uint256 amountToSwap = _amountIn;
 
-        // //  uint256 lpIndex = getLpIndex(path[0], path[1]);
-        // //  require(lpIndex != 0, "Pool doesn't exist");
-        // require(getLpIndex(path[0], path[1]) != 0, "Pool doesn't exist");
+        for (uint256 i = 0; i < _path.length - 1; i++) {
+            IERC20 outputToken = IERC20(_path[i + 1]);
+            uint256 poolId = getPoolId[inputToken][outputToken];
+            require(poolId != 0, "Pools: pool not exists");
 
-        // Pool storage pool = pools[getLpIndex(path[0], path[1]) - 1];
-        // // tokenB.transfer(to, netAmountOut);
-        // if (isXToF == true) {
-        //     netAmountOut = computeXToF(pool, amountIn);
-        //     vContract.swapTransfer(to, path[0], amountIn, netAmountOut, isXToF);
-        // } else {
-        //     netAmountOut = computeFToX(pool, amountIn);
-        //     vContract.swapTransfer(to, path[0], netAmountOut, amountIn, isXToF);
-        // }
+            Pool storage pool = getPool[poolId];
+            uint256 inputReserve = pool.token_amount;
+            uint256 outputReserve = pool.f_amount;
+
+            uint256 amountOut = (amountToSwap *
+                outputReserve *
+                (10 ** 18 - pool.feeRate)) /
+                ((inputReserve * 10 ** 18) +
+                    (amountToSwap * (10 ** 18 - pool.feeRate)));
+            require(amountOut > 0, "Pools: insufficient output amount");
+
+            pool.token_amount = inputReserve + amountToSwap;
+            pool.f_amount = outputReserve - amountOut;
+
+            amountToSwap = amountOut;
+            inputToken = outputToken;
+        }
+        IERC20 outToken = IERC20(_path[_path.length - 1]);
+        if (outToken != f) {
+            vault.transferF(_to, amountToSwap);
+        } else {
+            vault.transferToken(outToken, _to, amountToSwap);
+        }
     }
 }
