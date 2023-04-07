@@ -4,15 +4,15 @@ import {
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import { mainnet, goerli } from "@wagmi/core";
+import { mainnet, goerli, scrollTestnet } from "@wagmi/chains";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect } from "react";
 
-const alchemyId = process.env.ALCHEMY_ID;
+const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
-const chains = [goerli, mainnet];
+const chains = [scrollTestnet, goerli, mainnet];
 
 const client = createClient(
   getDefaultClient({
