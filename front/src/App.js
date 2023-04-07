@@ -31,6 +31,9 @@ const App = () => {
   const ExchangeClick = () => {
     navigate("/Exchange");
   };
+  const PoolsClick = () => {
+    navigate("/Pools");
+  };
   useEffect(() => {
     if (location.pathname === "/") {
       navigate("/Switch");
@@ -59,6 +62,14 @@ const App = () => {
                 onClick={() => ExchangeClick()}
               >
                 Exchange
+              </div>
+            </div>
+            <div className="justify-center flex flex-col ml-1 text-white">
+              <div
+                className="btn btn-sm btn-ghost text-xl"
+                onClick={() => PoolsClick()}
+              >
+                POOLS
               </div>
             </div>
           </div>
