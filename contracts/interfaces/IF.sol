@@ -8,7 +8,10 @@ interface IF is IERC20 {
     event VaultChanged(address indexed previousVault, address indexed newVault);
 
     function mint(address _account, uint256 _amount) external;
+
     function burn(address _account, uint256 _amount) external;
+
     function burn(uint256 _amount) external;
+
     function setVault(address newVault) external;
 }

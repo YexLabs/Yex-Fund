@@ -13,11 +13,13 @@ interface IVault {
 
     // 授权使用某token
     function authorizePermit(IERC20 token, address account) external;
+
     // 取消授权使用某token
     function revokePermit(IERC20 token, address account) external;
 
     // 支付某token
     function transferToken(IERC20 token, address to, uint256 amount) external;
+
     // 支付F
     function transferF(address to, uint256 amount) external;
 

@@ -9,7 +9,7 @@ import "../interfaces/IVault.sol";
 import "../interfaces/IOTC.sol";
 import "../interfaces/IPools.sol";
 
-contract Panel is Ownable{
+contract Panel is Ownable {
     IVault vault;
     IOTC otc;
     IPools pools;

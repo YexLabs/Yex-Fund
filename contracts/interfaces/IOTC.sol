@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 interface IOTC {
     // 申购 token => F
     function subscribe(IERC20 token, uint256 _amount) external;
-    
+
     // 赎回 F => token
     function redeem(IERC20 token, uint256 _amount) external;
 

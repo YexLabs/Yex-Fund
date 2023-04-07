@@ -6,11 +6,11 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../interfaces/IOTC.sol";
 import "../interfaces/IVault.sol";
 
-contract OTC is IOTC{
+contract OTC is IOTC {
     IVault private vault;
 
     constructor(IVault _vault) {
-        // 先部署F代币和vault，再部署场外交易合约
+        // 先部署vault，再部署场外交易合约
         vault = _vault;
     }
 
@@ -32,6 +32,6 @@ contract OTC is IOTC{
         vault.f().burn(msg.sender, _amount);
         // TODO 计算价格
         // 发送代币
-        vault.transferToken(token, msg.sender, _amount*99/100);
+        vault.transferToken(token, msg.sender, (_amount * 99) / 100);
     }
 }
