@@ -12,7 +12,14 @@ interface IOTC {
     function redeem(IERC20 token, uint256 _amount) external;
 
     // 开放申购
+    function openSubscribe() external;
+
     // 开放赎回
+    function openRedeem() external;
+
     // 关闭申购
+    function closeSubscribe() external;
+
     // 关闭赎回
+    function closeRedeem() external;
 }

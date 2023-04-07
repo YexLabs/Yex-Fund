@@ -21,9 +21,52 @@ contract Panel is Ownable {
         vault = _vault;
         otc = _otc;
         pools = _pools;
-        purchase = _purchase; 
+        purchase = _purchase;
     }
 
     // example 操作开放申购: otc开放申购，vault给token授权
+
+    // 开放申购
+    // @xiaochen
+    function OTC_openSubscribe() public onlyOwner {
+        otc.openSubscribe();
+    }
+
+    // 开放赎回
+    // @xiaochen
+    function OTC_openRedeem() public onlyOwner {
+        otc.openRedeem();
+    }
+
+    // 关闭申购
+    // @xiaochen
+    function OTC_closeSubscribe() public onlyOwner {
+        otc.closeSubscribe();
+    }
+
+    // 关闭赎回
+    // @xiaochen
+    function OTC_closeRedeem() public onlyOwner {
+        otc.closeRedeem();
+    }
+
+    // vault给token授权
+    // @xiaochen
+    function vault_authorizePermit(
+        IERC20 token,
+        address account
+    ) public onlyOwner {
+        vault.authorizePermit(token, account);
+    }
+
+    // vault取消token授权
+    // @xiaochen
+    function vault_revokePermit(
+        IERC20 token,
+        address account
+    ) public onlyOwner {
+        vault.revokePermit(token, account);
+    }
+
     // example 操作创建pool: pool创建，vault给token授权
 }
