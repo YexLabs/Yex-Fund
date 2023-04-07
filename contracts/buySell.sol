@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./tokenF.sol";
-import"./values.sol";
+import"./vault.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -27,7 +27,7 @@ contract buySell {
         vAddr=_vAddr;
     }
     function setDev(address _newdev) public{
-        require(msg.sender==dev,"Not dev");
+        require(msg.sender==dev,"Permission denied");
         dev=_newdev;
     }
     function withdraw(address _tokenX, uint256 _amount) public {
@@ -35,14 +35,14 @@ contract buySell {
         require(tokens[msg.sender] >= _amount,"Insufficient tokenF");
         tokens[msg.sender] = tokens[msg.sender] - _amount;
         uint256 amountBack = _amount * (100 - feePercent)/100;
-        values vContract = values(vAddr);
+        vault vContract = vault(vAddr);
         vContract.withdrawTransfer(_amount,amountBack,msg.sender,_tokenX);
     }
     
     function deposit(address _tokenX,uint256 _amount)  public { 
         // 申购
         require( IERC20(_tokenX).balanceOf(msg.sender)>= _amount,"Insufficient fund");
-        values vContract = values(vAddr);
+        vault vContract = vault(vAddr);
         vContract.depositTransfer(_amount,_amount,msg.sender,_tokenX); // 发给用户
         tokens[msg.sender] = tokens[msg.sender] + _amount;
     }

@@ -3,9 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import"./values.sol";
+import"./vault.sol";
 contract Swap {
-    //values合约地址
+    //vault合约地址
     address vAddr;
     //tokenF的地址
     address tokenFAddr;
@@ -36,6 +36,8 @@ contract Swap {
 
     // 初始化池子
     function initNewPool(address _tokenA,address _tokenB, uint256 _tokenA_amount,uint256 _tokenB_amount,uint256 _feeRate) public{
+        require(msg.sender==dev,"Permission denied");
+        if(_tokenA!=)
         Pool memory pool = Pool(_tokenA,_tokenB,_tokenA_amount,_tokenB_amount,_feeRate);
         uint lpIndex = getLpIndex(_tokenA,_tokenB);
         uint poolsLen = pools.length;
@@ -74,6 +76,7 @@ contract Swap {
     // 根据恒定K算法计算收到的代币A和付出的代币B
     function swap(uint256 amountIn, address[] calldata path, address to) public payable {
         bool isXToF;
+        uint256 netAmountOut;
         require(path.length >= 2, "Invalid path");
 
         if (path[0]!=tokenFAddr){
@@ -83,8 +86,8 @@ contract Swap {
         else{
             require(path[1]!=tokenFAddr,"Both tokenF");
         }
-        require(IERC20(path[0]).allowance(msg.sender, address(this)) >= amountIn, "Not enough allowance");
-        values vContract= values(vAddr);
+        require(IERC20(path[0]).allowance(msg.sender, vAddr) >= amountIn, "Not enough allowance");
+        vault vContract= vault(vAddr);
        
         // tokenA.transferFrom(msg.sender, address(this), amountIn);
 
@@ -93,23 +96,35 @@ contract Swap {
            require(getLpIndex(path[0], path[1]) != 0, "Pool doesn't exist");
 
             Pool storage pool = pools[getLpIndex(path[0], path[1]) - 1];
-            uint256 netAmountOut = compute(pool, amountIn);
             // tokenB.transfer(to, netAmountOut);
             if(isXToF==true){
+                netAmountOut = computeXToF(pool, amountIn);
                 vContract.swapTransfer(to,path[0],amountIn,netAmountOut,isXToF);
             }
             else{
-                 vContract.swapTransfer(to,path[0],netAmountOut,amountIn,isXToF);
+                netAmountOut = computeFToX(pool, amountIn);
+                vContract.swapTransfer(to,path[0],netAmountOut,amountIn,isXToF);
             }
             
 
         
     }
-    function compute(Pool storage pool,uint256 amountIn)internal returns (uint256 netAmountOut){
+    function computeXToF(Pool storage pool,uint256 amountIn)internal returns (uint256 netAmountOut){
         uint256 k = pool.tokenA_amount * pool.tokenB_amount; // x * y = k
         uint256 tokenAAmountAfter = pool.tokenA_amount + amountIn;
         uint256 tokenBAmountAfter = k / tokenAAmountAfter;
         uint256 amountOut = pool.tokenB_amount - tokenBAmountAfter;
+        uint256 fee = amountOut * pool.feeRate / 10000;
+        netAmountOut = amountOut - fee;
+        pool.tokenA_amount = tokenAAmountAfter;
+        pool.tokenB_amount = tokenBAmountAfter;
+        
+    }
+        function computeFToX(Pool storage pool,uint256 amountIn)internal returns (uint256 netAmountOut){
+        uint256 k = pool.tokenA_amount * pool.tokenB_amount; // x * y = k
+        uint256 tokenBAmountAfter = pool.tokenB_amount + amountIn;
+        uint256 tokenAAmountAfter = k / tokenBAmountAfter;
+        uint256 amountOut = pool.tokenA_amount - tokenAAmountAfter;
         uint256 fee = amountOut * pool.feeRate / 10000;
         netAmountOut = amountOut - fee;
         pool.tokenA_amount = tokenAAmountAfter;
