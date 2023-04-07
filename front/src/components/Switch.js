@@ -11,6 +11,7 @@ import {
   useAccount,
 } from "wagmi";
 import { utils } from "ethers";
+import { message } from "antd";
 
 import {
   tokenD_address,
@@ -62,8 +63,8 @@ export function Switch() {
     hash: hash,
     onSuccess(data) {
       console.log("Success", data);
-      alert("交易成功");
-      window.location.reload();
+      message.success("交易成功");
+      setIsLoading(false);
       // alert('交易成功')
     },
   });
@@ -141,17 +142,26 @@ export function Switch() {
     });
 
   const buyClick = () => {
+    setIsLoading(true);
     if (approvedAmount < amountRef.current?.value) {
-      approveTokenDWrite?.().then((res) => {
-        console.log(res);
-        setHash(res.hash);
-      });
+      approveTokenDWrite?.()
+        .then((res) => {
+          console.log(res);
+          setHash(res.hash);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+        });
     } else {
       console.log("授权数量已足够");
-      depositTokenDWrite?.().then((res) => {
-        console.log(res);
-        setHash(res.hash);
-      });
+      depositTokenDWrite?.()
+        .then((res) => {
+          console.log(res);
+          setHash(res.hash);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+        });
     }
   };
 
