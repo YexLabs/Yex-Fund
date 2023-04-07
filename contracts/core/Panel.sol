@@ -8,17 +8,20 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "../interfaces/IVault.sol";
 import "../interfaces/IOTC.sol";
 import "../interfaces/IPools.sol";
+import "../interfaces/IPurchase.sol";
 
 contract Panel is Ownable {
     IVault vault;
     IOTC otc;
     IPools pools;
+    IPurchase purchase;
 
-    constructor(IVault _vault, IOTC _otc, IPools _pools) {
+    constructor(IVault _vault, IOTC _otc, IPools _pools, IPurchase _purchase) {
         // 最后部署面板合约
         vault = _vault;
         otc = _otc;
         pools = _pools;
+        purchase = _purchase; 
     }
 
     // example 操作开放申购: otc开放申购，vault给token授权

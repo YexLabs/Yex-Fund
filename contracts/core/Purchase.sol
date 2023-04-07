@@ -30,7 +30,7 @@ contract Purchase is IPurchase {
         // 暂时先给vault mint一些token替代一下效果
         want_token.mint(address(vault), _amount);
 
-        // 假设随便丢一些F给随便地址当花掉了
+        // 假设随便丢一些token给随便地址当花掉了
         vault.transferToken(use_token, address(want_token), _amount);
     }
 }
