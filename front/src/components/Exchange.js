@@ -76,21 +76,21 @@ export function Exchange() {
       setIsApproved(true);
     },
   });
-  // 获取可兑换出的token数量
-  const getAmountOut = useContractRead({
-    address: pools_address,
-    abi: pools_abi,
-    functionName: "calculateNetAmountOut",
-    args: [
-      ethers.utils.parseEther(amountInRef.current?.value || "0"),
-      [selectValueFrom, selectValueTo],
-    ],
-    watch: true,
-    onSuccess(data) {
-      const amount = ethers.utils.formatUnits(data, "ether");
-      //   setApprovedAmount(amount);
-    },
-  });
+  // // 获取可兑换出的token数量
+  // const getAmountOut = useContractRead({
+  //   address: pools_address,
+  //   abi: pools_abi,
+  //   functionName: "calculateNetAmountOut",
+  //   args: [
+  //     ethers.utils.parseEther(amountInRef.current?.value || "0"),
+  //     [selectValueFrom, selectValueTo],
+  //   ],
+  //   watch: true,
+  //   onSuccess(data) {
+  //     const amount = ethers.utils.formatUnits(data, "ether");
+  //     //   setApprovedAmount(amount);
+  //   },
+  // });
   // tokenD授权config
   const { config: approveTokenDConfig } = usePrepareContractWrite({
     address: tokenD_address,
