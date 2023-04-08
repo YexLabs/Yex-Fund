@@ -220,12 +220,12 @@ export function Exchange() {
   // ↑至此垃圾代码结束
 
   // option选项
-  let [optionsfrom, setOptionsfrom] = useState([
+  let [optionsfrom] = useState([
     { value: tokenD_address, label: "TST", disabled: false },
     { value: tokenF_address, label: "GLD", disabled: false },
   ]);
 
-  let [optionsto, setOptionsTo] = useState([
+  let [optionsto] = useState([
     { value: tokenF_address, label: "GLD", disabled: false },
     { value: tokenD_address, label: "TST", disabled: false },
   ]);
