@@ -15,6 +15,8 @@ import { DownloadOutlined } from "@ant-design/icons";
 import './Found.css';
 import stars from "./images/switch/stars.png";
 import moon from "./images/switch/moon.png";
+import m_front from "./images/switch/mountains_front.png";
+import m_behind from "./images/switch/mountains_behind.png";
 // Css Over
 
 const { Meta } = Card;
@@ -32,36 +34,17 @@ export function Found() {
         <section>
           <img src={stars} alt="" id="stars" />
           <img src={moon} alt="" id="moon" />
-          <div>
-            <div className="ml-4">
-              <Card
-                style={{
-                  width: 220,
-                  height: 250,
-                  marginTop: 16,
-                }}
-                hoverable
-                loading={loading}
+          <img src={m_behind} alt="" id="mountain_behind" />
+          <div id="fund" className="card w-96 bg-base-100 shadow-xl h-24 mt-24">
+            <div className="card-body p-7">
+              <button
+                  className="btn w-full"
               >
-                <Meta
-                  avatar={
-                    <div>
-                      <Badge size="small" count={5}>
-                        <Avatar src={ethicon} />
-                      </Badge>
-                    </div>
-                  }
-                  title={
-                    <Button type="primary" ghost>
-                      采购
-                    </Button>
-                  }
-                  // description={
-                  // }
-                />
-              </Card>
+                Purchase
+              </button>
             </div>
           </div>
+          <img src={m_front} alt="" id="mountain_front" />
         </section>
       </div>
   );

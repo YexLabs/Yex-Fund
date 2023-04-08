@@ -80,7 +80,7 @@ const App = () => {
                 className="btn btn-sm btn-ghost text-xl"
                 onClick={() => FoundClick()}
               >
-                FOUND
+                FUND
               </div>
             </div>
           </div>
