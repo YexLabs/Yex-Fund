@@ -230,6 +230,15 @@ export function Exchange() {
     { value: tokenD_address, label: "TST", disabled: false },
   ]);
 
+  // 检测输入栏的值
+  const [inputValue, setInputValue] = useState("")
+  const [saluteValue, setSaluteValue] = useState("")
+  // 根据输入栏的值, 基于输出栏的值
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+    setSaluteValue(event.target.value);
+  }
+
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
       <section>
@@ -253,8 +262,10 @@ export function Exchange() {
                     id="ChangeFrom"
                     placeholder="Token you have"
                     ref={amountInRef}
+                    value={inputValue}
                     className="input input-bordered border-none h-16 bg-[#F0F0F0] mb-2 focus:outline-none"
-                    onFocus={(e) => setFocusedElement(e.target)}
+                    onFocus={(e) => setFocusedElement(e)}
+                    onChange={(e) => handleInputChange(e)}
                   />
                   <select
                     className="select focus:outline focus:outline-1"
@@ -285,6 +296,7 @@ export function Exchange() {
                 >
                   <input
                     id="ChangeTo"
+                    value={saluteValue}
                     className="input input-bordered border-none h-16 bg-[#F0F0F0] focus:outline-none"
                     placeholder="Token you want"
                     onFocus={(e) => setFocusedElement(e.target)}
