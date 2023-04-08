@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Card, Avatar } from "antd";
+import { message } from "antd";
 import {
   AppstoreOutlined,
   MailOutlined,
   SettingOutlined,
 } from "@ant-design/icons"; // 给导航菜单用
 import ethicon from "./images/pools/eth.png";
-import { useContractRead, erc20ABI, useAccount } from "wagmi";
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
+  erc20ABI,
+  useAccount,
+} from "wagmi";
 
 import {
+  panel_adress,
   pools_address,
   tokenD_address,
   tokenF_address,
 } from "../contracts/addresses";
-import { pools_abi } from "../contracts/abis";
+import { panel_abi, pools_abi } from "../contracts/abis";
 import { ethers } from "ethers";
 
 // For Css
@@ -34,6 +43,19 @@ export function Pools() {
   const [tokenBSymbol, setTokenBSymbol] = useState("");
   const [tokenAAmount, setTokenAAmount] = useState("0.0");
   const [tokenBAmount, setTokenBAmount] = useState("0.0");
+  const [hash, setHash] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const confirmation = useWaitForTransaction({
+    hash: hash,
+    onSuccess(data) {
+      console.log("Success", data);
+      message.success("success");
+      setIsLoading(false);
+      // alert('交易成功')
+    },
+  });
+
   // 获取vault已授权的tokenD数量
   const getTokenDApproved = useContractRead({
     address: pools_address,
@@ -51,6 +73,43 @@ export function Pools() {
       // setApprovedAmount(amount);
     },
   });
+
+  // 新建流动性池config
+  const { config: createPoolConfig } = usePrepareContractWrite({
+    address: pools_address,
+    abi: pools_abi,
+    functionName: "createLiquidity",
+    args: [
+      tokenD_address,
+      ethers.utils.parseEther("10"),
+      ethers.utils.parseEther("10"),
+      1,
+    ],
+  });
+  // 新建流动性池
+  const { data: createPoolData, writeAsync: createPoolWrite } =
+    useContractWrite({
+      ...createPoolConfig,
+      onError(error) {
+        console.log("Error", error);
+      },
+    });
+
+  const createPoolClick = () => {
+    if (createPoolWrite) {
+      createPoolWrite?.()
+        .then((res) => {
+          console.log(res);
+          setHash(res.hash);
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error("error");
+        });
+    } else {
+      message.error("pool exits");
+    }
+  };
 
   // 获取tokenA的symbol
   const getTokenASymbol = useContractRead({
@@ -108,7 +167,12 @@ export function Pools() {
                   Explore liquidity pools with potential for future development
                 </h1>
                 <div className="text-2xl">Or</div>
-                <button className="rounded-full bg-primary text-xl text-white px-4 py-1">
+                <button
+                  className="rounded-full bg-primary text-xl text-white px-4 py-1"
+                  onClick={() => {
+                    createPoolClick();
+                  }}
+                >
                   Create Pool
                 </button>
               </div>

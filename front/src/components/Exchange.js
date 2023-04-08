@@ -68,7 +68,7 @@ export function Exchange() {
     address: tokenD_address,
     abi: erc20ABI,
     functionName: "allowance",
-    args: [address, vault_address],
+    args: [address, buysell_address],
     watch: true,
     onSuccess(data) {
       const amount = ethers.utils.formatUnits(data, "ether");
