@@ -107,9 +107,9 @@ export function Pools() {
             {FundsData.map((onepool) => (
                 <div id="box1" className={`bg-white rounded-lg ${onepool.set} h-[49%] w-[20%] absolute`}>
                   <div id="box1_body" className="p-6 h-full">
-                    <div id="box1_title" className="mb-2 text-2xl flex flex-row">
+                    <div id="box1_title" className="mb-2 text-2xl flex">
                       <Avatar className="h-6 w-6 self-center" src={ethicon} />
-                      <div className="ml-2 font-bold">{onepool.FundName}</div>
+                      <div className="pl-2 font-bold">{onepool.FundName}</div>
                       <div className="ml-3 font-light text-sm self-center dropdown dropdown-hover dropdown-right dropdown-end">
                         {tokenASymbol} - {tokenBSymbol}
                         <ul className="dropdown-content card card-compact ml-2 h-20 w-32 shadow bg-[#3d4451] text-white text-1xl justify-center">
@@ -123,11 +123,11 @@ export function Pools() {
                         </ul>
                       </div>
                     </div>
-                    <div id="box1_content" className="h-[315px]">
-                      <p className="text-ellipsis overflow-hidden h-full">
+                    <div id="box1_content" className="h-[81%]">
+                      <p className="text-ellipsis overflow-hidden whitespace-normal h-full">
                         {onepool.FundContent}
                       </p>
-                      <div className="mt-2">
+                      <div className="pt-2">
                         <a href="#" className="font-bold hover:underline">Click to exit</a>
                         <i class="fa-solid fa-arrow-right"></i>
                       </div>

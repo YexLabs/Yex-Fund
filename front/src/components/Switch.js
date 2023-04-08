@@ -82,6 +82,8 @@ export function Switch() {
       setApprovedAmount(amount);
     },
   });
+
+  // TokenD授权的全部代码:
   // tokenD授权config
   const { config: approveTokenDConfig } = usePrepareContractWrite({
     address: tokenD_address,
@@ -89,20 +91,21 @@ export function Switch() {
     functionName: "approve",
     args: [
       buysell_address,
-      ethers.utils.parseEther(amountRef.current?.value || "0"),
+      ethers.utils.parseEther(amountRef.current?.value || "0"), // string → BigNumber
     ],
   });
   // tokenD授权
   const {
     data: approveTokenDData,
-    isSuccess,
+    isSuccess, // 检测这个变量是true还是false, 相当于预检测配置写入是否有问题
     writeAsync: approveTokenDWrite,
   } = useContractWrite({
-    ...approveTokenDConfig,
+    ...approveTokenDConfig, // "approveTokenDConfig"就是上面写的调用合约中"approve"函数的配置文件
     onError(error) {
       console.log("Error", error);
     },
   });
+
   // tokenD申购config
   const { config: depositTokenDConfig } = usePrepareContractWrite({
     address: buysell_address,
