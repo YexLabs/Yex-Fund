@@ -70,6 +70,23 @@ export function Pools() {
     },
   });
 
+  // 定位的循环数组
+  let set = [null, 'left-[28%]', 'right-[28%]', 'right-[6%]']
+
+  // 循环显示你的流动池
+  let FundsData = [
+    {
+      Id: 0,
+      set: set[0],
+      FundName: 'FortuneFunds',
+      FundContent: 'Our latest Web3 liquidity pool feature the dynamic duo of TST and GLD virtual currencies! This cutting-edge platform offers investors the opportunity to dive into the world of decentralized finance, with the added benefit of our carefully curated and highly liquid asset pool. Investors seeking to maximize their returns in the Web3 space need look no further than our TST/GLD liquidity pool.  Our robust and secure infrastructure ensures smooth and efficient trading, while our team of expert analysts and traders works tirelessly to optimize returns and minimize risk.',
+      TokenNO1: tokenASymbol,
+      TokenNO1Amount: tokenAAmount,
+      TokenNO2: tokenBSymbol,
+      TokenNO2Amount: tokenBAmount,
+    },
+  ]
+
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
       <section className="justify-center w-full">
@@ -80,44 +97,47 @@ export function Pools() {
             <div className="card-body">
               <div id="title_show_top" className="card-title italic flex flex-col w-full justify-center text-3xl">
                 <h1>Explore liquidity pools with potential for future development</h1>
-                <div>Or</div>
-                <button className="rounded-full bg-primary text-xl text-white px-5 py-3">Create Pool</button>
+                <div className="text-2xl">Or</div>
+                <button className="rounded-full bg-primary text-xl text-white px-4 py-1">Create Pool</button>
               </div>
               {/*<div id="title_show_content" className="flex justify-center">123456</div>*/}
             </div>
           </div>
           <div id="boxs" className="flex flex-row mt-20 justify-start w-[100%]">
-            <div id="box1" className="bg-white rounded-lg h-[49%] w-[20%] absolute">
-              <div id="box1_body" className="p-6">
-                <div id="box1_title" className="mb-2 text-2xl flex flex-row">
-                  <img className="h-5 w-5 top-[1.95rem] left-5" src={ethicon} />
-                  <div className="ml-6 font-bold">FortuneFunds </div>
-                  <div className="ml-3 font-light text-sm self-center dropdown dropdown-hover dropdown-right dropdown-end">
-                    {tokenASymbol} - {tokenBSymbol}
-                    <ul className="dropdown-content card card-compact ml-2 h-20 w-32 shadow bg-[#3d4451] text-white text-1xl justify-center">
-                      <p className="px-4 self-center">
-                        <div>TokenAmount↓</div>
-                        <div>
-                          <div>{tokenASymbol} - {tokenAAmount.slice(0,3)}</div>
-                          <div>{tokenBSymbol} - {tokenBAmount.slice(0,3)}</div>
-                        </div>
+            {FundsData.map((onepool) => (
+                <div id="box1" className={`bg-white rounded-lg ${onepool.set} h-[49%] w-[20%] absolute`}>
+                  <div id="box1_body" className="p-6 h-full">
+                    <div id="box1_title" className="mb-2 text-2xl flex flex-row">
+                      <Avatar className="h-6 w-6 self-center" src={ethicon} />
+                      <div className="ml-2 font-bold">{onepool.FundName}</div>
+                      <div className="ml-3 font-light text-sm self-center dropdown dropdown-hover dropdown-right dropdown-end">
+                        {tokenASymbol} - {tokenBSymbol}
+                        <ul className="dropdown-content card card-compact ml-2 h-20 w-32 shadow bg-[#3d4451] text-white text-1xl justify-center">
+                          <p className="px-4 self-center">
+                            <div>TokenAmount↓</div>
+                            <div>
+                              <div>{onepool.TokenNO1} - {onepool.TokenNO1Amount.slice(0,3)}</div>
+                              <div>{onepool.TokenNO2} - {onepool.TokenNO2Amount.slice(0,3)}</div>
+                            </div>
+                          </p>
+                        </ul>
+                      </div>
+                    </div>
+                    <div id="box1_content" className="h-[315px]">
+                      <p className="text-ellipsis overflow-hidden h-full">
+                        {onepool.FundContent}
                       </p>
-                    </ul>
+                      <div className="mt-2">
+                        <a href="#" className="font-bold hover:underline">Click to exit more</a>
+                        <i class="fa-solid fa-arrow-right"></i>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div id="box1_content">
-                  <p className="text-ellipsis overflow-hidden">Our latest Web3 liquidity pool feature the dynamic duo of TST and GLD virtual currencies! This cutting-edge platform offers investors the opportunity to dive into the world of decentralized finance, with the added benefit of our carefully curated and highly liquid asset pool. Investors seeking to maximize their returns in the Web3 space need look no further than our TST/GLD liquidity pool.  Our robust and secure infrastructure ensures smooth and efficient trading, while our team of expert analysts and traders works tirelessly to optimize returns and minimize risk.
-                  </p>
-                  <div className="mt-2">
-                    <a href="#" className="font-bold hover:underline">Click to read more</a>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </div>
-                </div>
+            ))}
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-    </div>
   );
 }
