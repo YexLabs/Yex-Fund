@@ -128,7 +128,7 @@ export function Pools() {
                         {onepool.FundContent}
                       </p>
                       <div className="mt-2">
-                        <a href="#" className="font-bold hover:underline">Click to exit more</a>
+                        <a href="#" className="font-bold hover:underline">Click to exit</a>
                         <i class="fa-solid fa-arrow-right"></i>
                       </div>
                     </div>
