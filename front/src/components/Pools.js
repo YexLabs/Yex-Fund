@@ -80,6 +80,8 @@ export function Pools() {
             <div className="card-body">
               <div id="title_show_top" className="card-title italic flex flex-col w-full justify-center text-3xl">
                 <h1>Explore liquidity pools with potential for future development</h1>
+                <div>Or</div>
+                <button className="rounded-full bg-primary text-xl text-white px-5 py-3">Create Pool</button>
               </div>
               {/*<div id="title_show_content" className="flex justify-center">123456</div>*/}
             </div>
@@ -104,7 +106,7 @@ export function Pools() {
                   </div>
                 </div>
                 <div id="box1_content">
-                  <p>Our latest Web3 liquidity pool feature the dynamic duo of TST and GLD virtual currencies!  This cutting-edge platform offers investors the opportunity to dive into the world of decentralized finance, with the added benefit of our carefully curated and highly liquid asset pool. Investors seeking to maximize their returns in the Web3 space need look no further than our TST/GLD liquidity pool.  Our robust and secure infrastructure ensures smooth and efficient trading, while our team of expert analysts and traders works tirelessly to optimize returns and minimize risk.
+                  <p className="text-ellipsis overflow-hidden">Our latest Web3 liquidity pool feature the dynamic duo of TST and GLD virtual currencies! This cutting-edge platform offers investors the opportunity to dive into the world of decentralized finance, with the added benefit of our carefully curated and highly liquid asset pool. Investors seeking to maximize their returns in the Web3 space need look no further than our TST/GLD liquidity pool.  Our robust and secure infrastructure ensures smooth and efficient trading, while our team of expert analysts and traders works tirelessly to optimize returns and minimize risk.
                   </p>
                   <div className="mt-2">
                     <a href="#" className="font-bold hover:underline">Click to read more</a>
