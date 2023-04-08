@@ -1,5 +1,8 @@
-export const tokenD_address = "0x720f69A6AE0E38E17d78F4f473556A88fA7D1782";
-export const tokenF_address = "0x7BD9F36D6C26a22653f853B987d091737C65a71F";
-export const buysell_address = "0x0F58A68f0Cd9cf2650204b3D1605bA29F43938db";
-export const vault_address = "0x4310FB39Ae176BAfaBd3a8286d8790979e1DA056";
-export const pools_address = "0x274B0aA6F7ad576b85e5E62E91bc973040263224";
+export const tokenB_address = "0xdE9270E4612F6a843Da968F645D0d24267d8E350";
+export const tokenD_address = "0x8F393015E1Bbea61e41c808E560942292D104386";
+export const tokenF_address = "0x49C1dB0aEEA8a472F8BF123a770323765A4Fa619";
+export const buysell_address = "0xd11fF339a9C407Bb690Bd3dBA4e38157EfE9ac90";
+export const vault_address = "0xe7C6a9D88f68b96a9697129Ed3E5BD8F7274fAD8";
+export const pools_address = "0x75BD00123952dCe74eCe82aEc043676CbF0f6fc2";
+export const panel_adress = "0x96ab4bFc8F46b9BCAF98271adc628511989cfE38";
+export const purchase = "0xb16d3Eaa4dD2eC8684569bB0aC601E713dD7787E";

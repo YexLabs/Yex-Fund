@@ -17,6 +17,7 @@ import {
   tokenD_address,
   buysell_address,
   vault_address,
+  tokenF_address,
 } from "../contracts/addresses";
 
 import "./Switch.css";
@@ -29,6 +30,8 @@ import { buysell_abi } from "../contracts/abis";
 export function Switch() {
   const [to, setTo] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isApprovedD, setIsApprovedD] = React.useState(false);
+  const [isApprovedF, setIsApprovedF] = React.useState(false);
   const [debouncedTo] = useDebounce(to, 500);
 
   const [amount, setAmount] = React.useState("");
@@ -36,7 +39,8 @@ export function Switch() {
 
   const { address } = useAccount();
   const [hash, setHash] = React.useState("");
-  const [approvedAmount, setApprovedAmount] = React.useState(0);
+  const [approvedDAmount, setApprovedDAmount] = React.useState(0);
+  const [approvedFAmount, setApprovedFAmount] = React.useState(0);
   const amountRef = React.useRef();
 
   // 切换状态栏的按钮组件
@@ -63,7 +67,7 @@ export function Switch() {
     hash: hash,
     onSuccess(data) {
       console.log("Success", data);
-      message.success("交易成功");
+      message.success("success");
       setIsLoading(false);
       // alert('交易成功')
     },
@@ -74,16 +78,20 @@ export function Switch() {
     address: tokenD_address,
     abi: erc20ABI,
     functionName: "allowance",
-    args: [address, vault_address],
+    args: [address, buysell_address],
     watch: true,
     onSuccess(data) {
       console.log("GetTokenDApproved", data);
       const amount = ethers.utils.formatUnits(data, "ether");
-      setApprovedAmount(amount);
+      setApprovedDAmount(amount);
+      if (amount >= Number(amountRef.current?.value)) {
+        setIsApprovedD(true);
+      } else {
+        setIsApprovedD(false);
+      }
+      console.log("isApprovedD", isApprovedD);
     },
   });
-
-  // TokenD授权的全部代码:
   // tokenD授权config
   const { config: approveTokenDConfig } = usePrepareContractWrite({
     address: tokenD_address,
@@ -91,21 +99,56 @@ export function Switch() {
     functionName: "approve",
     args: [
       buysell_address,
-      ethers.utils.parseEther(amountRef.current?.value || "0"), // string → BigNumber
+      ethers.utils.parseEther(amountRef.current?.value || "0"),
     ],
   });
   // tokenD授权
+  const { data: approveTokenDData, writeAsync: approveTokenDWrite } =
+    useContractWrite({
+      ...approveTokenDConfig,
+      onError(error) {
+        console.log("Error", error);
+      },
+    });
+  // 获取vault已授权的tokenF数量
+  const getTokenFApproved = useContractRead({
+    address: tokenF_address,
+    abi: erc20ABI,
+    functionName: "allowance",
+    args: [address, vault_address],
+    watch: true,
+    onSuccess(data) {
+      console.log("GetTokenFApproved", data);
+      const amount = ethers.utils.formatUnits(data, "ether");
+      setApprovedFAmount(amount);
+      if (amount >= Number(amountRef.current?.value)) {
+        setIsApprovedF(true);
+      } else {
+        setIsApprovedF(false);
+      }
+    },
+  });
+  // tokenF授权config
+  const { config: approveTokenFConfig } = usePrepareContractWrite({
+    address: tokenF_address,
+    abi: erc20ABI,
+    functionName: "approve",
+    args: [
+      vault_address,
+      ethers.utils.parseEther(amountRef.current?.value || "0"),
+    ],
+  });
+  // tokenF授权
   const {
-    data: approveTokenDData,
-    isSuccess, // 检测这个变量是true还是false, 相当于预检测配置写入是否有问题
-    writeAsync: approveTokenDWrite,
+    data: approveTokenFData,
+    isSuccess,
+    writeAsync: approveTokenFWrite,
   } = useContractWrite({
-    ...approveTokenDConfig, // "approveTokenDConfig"就是上面写的调用合约中"approve"函数的配置文件
+    ...approveTokenFConfig,
     onError(error) {
       console.log("Error", error);
     },
   });
-
   // tokenD申购config
   const { config: depositTokenDConfig } = usePrepareContractWrite({
     address: buysell_address,
@@ -147,7 +190,7 @@ export function Switch() {
   const buyClick = () => {
     setIsLoading(true);
     console.log("buy");
-    if (approvedAmount < Number(amountRef.current?.value)) {
+    if (approvedDAmount < Number(amountRef.current?.value)) {
       approveTokenDWrite?.()
         .then((res) => {
           console.log(res);
@@ -158,7 +201,26 @@ export function Switch() {
         });
     } else {
       console.log("授权数量已足够");
-      depositTokenDWrite?.()
+      if (depositTokenDWrite) {
+        depositTokenDWrite?.()
+          .then((res) => {
+            console.log(res);
+            setHash(res.hash);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+          });
+      } else {
+        setIsLoading(false);
+        message.error("network failed");
+      }
+    }
+  };
+
+  const sellClick = () => {
+    setIsLoading(true);
+    if (approvedFAmount < Number(amountRef.current?.value)) {
+      approveTokenFWrite?.()
         .then((res) => {
           console.log(res);
           setHash(res.hash);
@@ -166,19 +228,22 @@ export function Switch() {
         .catch((err) => {
           setIsLoading(false);
         });
-    }
-  };
-
-  const sellClick = () => {
-    setIsLoading(true);
-    withdrawTokenDWrite?.()
-      .then((res) => {
-        console.log(res);
-        setHash(res.hash);
-      })
-      .catch((err) => {
+    } else {
+      console.log("授权数量已足够");
+      if (withdrawTokenDWrite) {
+        withdrawTokenDWrite?.()
+          .then((res) => {
+            console.log(res);
+            setHash(res.hash);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+          });
+      } else {
         setIsLoading(false);
-      });
+        message.error("network failed");
+      }
+    }
   };
 
   return (
@@ -234,7 +299,7 @@ export function Switch() {
                     buyClick();
                   }}
                 >
-                  {isLoading ? "Buying..." : "Buy"}
+                  {isLoading ? "Loading..." : isApprovedD ? "Buy" : "Approve"}
                 </button>
               ) : (
                 <button
@@ -244,7 +309,7 @@ export function Switch() {
                     sellClick();
                   }}
                 >
-                  {isLoading ? "Selling..." : "Sell"}
+                  {isLoading ? "Loading..." : isApprovedF ? "Sell" : "Approve"}
                 </button>
               )}
               {/* {isSuccess && (

@@ -1444,3 +1444,244 @@ export const pools_abi = [
     type: "function",
   },
 ];
+
+export const purchase_abi = [
+  {
+    inputs: [
+      {
+        internalType: "contract IVault",
+        name: "_vault",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IMintable",
+        name: "want_token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "purchaseByF",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IMintable",
+        name: "want_token",
+        type: "address",
+      },
+      {
+        internalType: "contract IERC20",
+        name: "use_token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "purchaseByToken",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
+export const panel_abi = [
+  {
+    inputs: [
+      {
+        internalType: "contract IVault",
+        name: "_vault",
+        type: "address",
+      },
+      {
+        internalType: "contract IOTC",
+        name: "_otc",
+        type: "address",
+      },
+      {
+        internalType: "contract IPools",
+        name: "_pools",
+        type: "address",
+      },
+      {
+        internalType: "contract IPurchase",
+        name: "_purchase",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "otc_closeRedeem",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "otc_closeSubscribe",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "otc_openRedeem",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "otc_openSubscribe",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_f_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_feeRate",
+        type: "uint256",
+      },
+    ],
+    name: "pools_create",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+    ],
+    name: "pools_destroy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "vault_authorizePermit",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "vault_revokePermit",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
