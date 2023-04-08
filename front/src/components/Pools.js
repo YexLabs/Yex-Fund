@@ -157,7 +157,7 @@ export function Pools() {
         <img src={stars} alt="" id="stars" />
         <img src={moon} alt="" id="moon" />
         <div id="all-content" className="w-full">
-          <div className="card">
+          <div className="card h-[30%]">
             <div className="card-body">
               <div
                 id="title_show_top"
@@ -183,7 +183,7 @@ export function Pools() {
             {FundsData.map((onepool) => (
               <div
                 id="box1"
-                className={`bg-white rounded-lg ${onepool.set} h-[49%] w-[20%] absolute`}
+                className={`bg-white rounded-lg ${onepool.set} h-[40%] w-[20%] absolute`}
               >
                 <div id="box1_body" className="p-6 h-full">
                   <div id="box1_title" className="mb-2 text-2xl flex flex-row">
@@ -208,8 +208,8 @@ export function Pools() {
                       </ul>
                     </div>
                   </div>
-                  <div id="box1_content" className="h-[315px]">
-                    <p className="text-ellipsis overflow-hidden h-full">
+                  <div id="box1_content" className="h-[75%]">
+                    <p className="text-ellipsis overflow-auto h-full">
                       {onepool.FundContent}
                     </p>
                     <div className="mt-2">

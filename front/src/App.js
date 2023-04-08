@@ -6,7 +6,7 @@ import {
 } from "connectkit";
 import { mainnet, goerli, scrollTestnet } from "@wagmi/chains";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import logo from "./logo.svg";
+import logo from "./components/images/scroll.png";
 import "./App.css";
 import { useEffect } from "react";
 
@@ -49,7 +49,7 @@ const App = () => {
         <div id="Top-line" className="flex justify-between h-16">
           <div className="flex flex-row">
             <div className="ml-2 flex justify-center flex-col">
-              <img className="h-8" src={logo} />
+              <img className="h-12 ml-1" src={logo} />
             </div>
             <div className="justify-center flex flex-col ml-1 text-white">
               <div
