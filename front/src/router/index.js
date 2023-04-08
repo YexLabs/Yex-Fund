@@ -13,7 +13,8 @@ export function BaseRoutes() {
         <Route path="/" element={<App />}>
           <Route path="/Switch" element={<Switch />} />
           <Route path="/Exchange" element={<Exchange />} />
-          <Route path="/Pools" element={<Pools />} />
+          <Route path="/Pools" element={<Pools />} >
+          </Route>
           <Route path="/Found" element={<Found />} />
         </Route>
       </Routes>
