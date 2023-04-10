@@ -22,7 +22,7 @@ export default function AppHeader() {
                 <div className=" relative">
                   <div>
                     <a
-                      href=""
+                      href="/intro"
                       className="text-current no-underline cursor-default"
                     >
                       <div className="cursor-pointer">

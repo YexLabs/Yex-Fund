@@ -38,9 +38,12 @@ const App = () => {
   const FoundClick = () => {
     navigate("/Found");
   };
+  const LogoClick = () => {
+    navigate("/intro");
+  };
   useEffect(() => {
     if (location.pathname === "/") {
-      navigate("/Switch");
+      navigate("/intro");
     }
   }, []);
 
