@@ -6,17 +6,19 @@ import { Exchange } from "../components/Exchange";
 import { Pools } from "../components/Pools";
 import { Found } from "../components/Found";
 import Intro from "../components/Intro";
+import WhitePaper from "../components/WhitePaper";
 
 export function BaseRoutes() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/trade" element={<Switch />} />
+          <Route path="/otc" element={<Switch />} />
           <Route path="/Exchange" element={<Exchange />} />
           <Route path="/Pools" element={<Pools />} />
           <Route path="/Found" element={<Found />} />
           <Route path="/intro" element={<Intro />} />
+          <Route path="/whitepaper" element={<WhitePaper />} />
         </Route>
       </Routes>
     </Router>

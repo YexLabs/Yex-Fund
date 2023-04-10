@@ -10,6 +10,8 @@ import logo from "./components/images/scroll.png";
 import "./App.css";
 import { useEffect } from "react";
 import AppHeader from "./components/AppHeader";
+import Network from "./components/Network";
+import Footer from "./components/Footer";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
@@ -48,10 +50,11 @@ const App = () => {
   }, []);
 
   return (
-    <WagmiConfig client={client}>
-      <div className="fixed top-0 left-0 w-full h-full z-0 bg-gradient-to-r from-purple-100 to-blue-100">
-        <AppHeader />
-        {/* <div id="" className="flex justify-between h-16">
+    <div className="h-screen">
+      <WagmiConfig client={client}>
+        <div className="fixed top-0 left-0 w-full h-full z-0 bg-gradient-to-r from-purple-100 to-blue-100 overflow-y-auto overflow-x-hidden">
+          <AppHeader />
+          {/* <div id="" className="flex justify-between h-16">
           <div className="flex flex-row">
             <div className="ml-2 flex justify-center flex-col">
               <img className="h-12 ml-1" src={logo} />
@@ -95,11 +98,12 @@ const App = () => {
             </ConnectKitProvider>
           </div>
         </div> */}
-        <div className=" flex-grow">
+          <Network />
           <Outlet />
+          <Footer />
         </div>
-      </div>
-    </WagmiConfig>
+      </WagmiConfig>
+    </div>
   );
 };
 
