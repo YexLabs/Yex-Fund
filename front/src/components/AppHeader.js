@@ -36,7 +36,7 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/swap"
+                      href="/trade"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
@@ -50,7 +50,7 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/swap"
+                      href="#"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
@@ -64,7 +64,7 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/swap"
+                      href="#"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
@@ -78,7 +78,7 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/swap"
+                      href="#"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
@@ -92,8 +92,9 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/swap"
+                      href="https://scroll.io/alpha/bridge"
                       class="no-underline text-current cursor-default"
+                      target="_blank"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
                         <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
