@@ -15,7 +15,7 @@ export default function AppHeader() {
       </div>
 
       <div className="relative">
-        <div className="box-border px-3 py-2 pl- absolute w-full">
+        <div className="box-border px-3 py-2 pl- absolute w-full backdrop-blur-md ">
           <div class="row2 flex flex-row justify-between items-center flex-wrap gap-y-10 max-w-full">
             <div class="flex flex-row items-center gap-6">
               <div className="mb-[2px]">
