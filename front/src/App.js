@@ -11,6 +11,7 @@ import "./App.css";
 import { useEffect } from "react";
 import AppHeader from "./components/AppHeader";
 import Network from "./components/Network";
+import Footer from "./components/Footer";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
@@ -99,6 +100,7 @@ const App = () => {
         </div> */}
           <Network />
           <Outlet />
+          <Footer />
         </div>
       </WagmiConfig>
     </div>

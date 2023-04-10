@@ -1,6 +1,10 @@
 //xiaochen
 import React from "react";
 import bg from "./images/intro/bg.png";
+import curve from "./images/intro/curve.png";
+import honypot from "./images/intro/honypot.png";
+import scroll from "./images/intro/scroll.png";
+import berachain from "./images/intro/berachain.png";
 
 export default function Intro() {
   return (
@@ -39,6 +43,7 @@ export default function Intro() {
               </div>
             </div>
           </div>
+
           <div className="flex flex-col items-center mt-96 mx-2">
             <div className="flex flex-col gap-6 items-center">
               <p className=" text-4xl font-semibold">An Aligned Mission</p>
@@ -67,6 +72,29 @@ export default function Intro() {
                   </span>
                 </button>
               </a>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center mt-2 mx-2">
+            <div className="px-12">
+              <img src={curve} />
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center mt-16 mx-2">
+            <div className="flex flex-col gap-2 items-center">
+              <p className=" text-4xl font-semibold">Built with the Best</p>
+              <p className="  text-center">
+                Thanks to our partners and the best builders in Web3 industry
+              </p>
+              <div>
+                {" "}
+                <div class=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
+                  <img src={honypot} className=" mx-4 w-52 h-16" />
+                  <img src={scroll} className=" mx-4 w-52 h-16" />{" "}
+                  <img src={berachain} className=" mx-4 w-52 h-16" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
