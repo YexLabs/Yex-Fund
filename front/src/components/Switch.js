@@ -249,9 +249,9 @@ export function Switch() {
   return (
     <div id="Switch-body" className="h-full justify-center items-center flex">
       <section>
-        <img src={stars} alt="" id="stars" />
+        {/* <img src={stars} alt="" id="stars" />
         <img src={moon} alt="" id="moon" />
-        <img src={m_behind} alt="" id="mountain_behind" />
+        <img src={m_behind} alt="" id="mountain_behind" /> */}
         <div id="BuySell" className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body p-7">
             <div id="button-group" className="mb-3">
@@ -333,7 +333,7 @@ export function Switch() {
             </form>
           </div>
         </div>
-        <img src={m_front} alt="" id="mountain_front" />
+        {/* <img src={m_front} alt="" id="mountain_front" /> */}
       </section>
     </div>
   );

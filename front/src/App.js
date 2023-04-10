@@ -9,6 +9,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "./components/images/scroll.png";
 import "./App.css";
 import { useEffect } from "react";
+import AppHeader from "./components/AppHeader";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
@@ -37,16 +38,20 @@ const App = () => {
   const FoundClick = () => {
     navigate("/Found");
   };
+  const LogoClick = () => {
+    navigate("/intro");
+  };
   useEffect(() => {
     if (location.pathname === "/") {
-      navigate("/Switch");
+      navigate("/intro");
     }
   }, []);
 
   return (
     <WagmiConfig client={client}>
-      <div className="flex flex-col">
-        <div id="Top-line" className="flex justify-between h-16">
+      <div className="fixed top-0 left-0 w-full h-full z-0 bg-gradient-to-r from-purple-100 to-blue-100">
+        <AppHeader />
+        {/* <div id="" className="flex justify-between h-16">
           <div className="flex flex-row">
             <div className="ml-2 flex justify-center flex-col">
               <img className="h-12 ml-1" src={logo} />
@@ -89,7 +94,7 @@ const App = () => {
               <ConnectKitButton />
             </ConnectKitProvider>
           </div>
-        </div>
+        </div> */}
         <div className=" flex-grow">
           <Outlet />
         </div>
