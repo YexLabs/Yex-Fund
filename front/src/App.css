@@ -57,6 +57,14 @@
   background-color: #007d35;
 }
 
+.react-pdf__Page__textContent {
+  display: none;
+}
+
+.react-pdf__Page__canvas {
+  margin-bottom: 30px;
+}
+
 #Top-line {
   background: linear-gradient(
     60deg,

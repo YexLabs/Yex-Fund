@@ -10,14 +10,9 @@ export default function WhitePaper() {
   }
   return (
     <div className="mt-24 w-full items-center flex justify-center">
-      {" "}
       <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
-          <Page
-            key={`page_${index + 1}`}
-            pageNumber={index + 1}
-            PageMode="fullScreen"
-          />
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} />
         ))}
       </Document>
     </div>
