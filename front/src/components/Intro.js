@@ -1,4 +1,4 @@
-//xiaochen
+//@xiaochen
 import React from "react";
 import bg from "./images/intro/bg.png";
 import curve from "./images/intro/curve.png";
@@ -11,8 +11,8 @@ export default function Intro() {
     <div class="box-border mx-auto mb-7 min-h-screen md:min-h-auto md:h-auto md:pt-7">
       <div className="mb-[100px]">
         <img
-          className="absolute flex justify-center  w-full top-20 z-negative"
-          src={bg}
+          className="absolute flex justify-center  w-full top-20 z-negative mt-48"
+          src={curve}
           alt=""
         />
         <div className="flex flex-col box-border mx-auto w-full max-w-screen-lg pt-40">

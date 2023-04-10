@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <div className="px-32 pb-16">
       <div class="grid grid-cols-5 gap-8">
-        <img src={logo} className="w-16 h-16" />
+        <img src={logo} className="w-14 h-14" />
         <div className="flex flex-col gap-4">
           <p className=" text-gray-500">Community</p>
 

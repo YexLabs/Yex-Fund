@@ -9,7 +9,7 @@ export default function AppHeader() {
       <div class="flex fade-in bg-blue-500 backdrop-blur-md items-center">
         <div class="mx-auto py-[2px] ">
           <p class="m-0 font-inter font-normal leading-5 text-xs text-white">
-            You are on the Scroll Alpha Testnet.
+            Scroll's Alpha Testnet is now live.
           </p>
         </div>
       </div>
