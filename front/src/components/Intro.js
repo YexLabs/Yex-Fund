@@ -1,5 +1,6 @@
 //xiaochen
 import React from "react";
+import bg from "./images/intro/bg.png";
 
 export default function Intro() {
   return (
@@ -7,7 +8,7 @@ export default function Intro() {
       <div className="mb-[100px]">
         <img
           className="absolute flex justify-center  w-full top-20 z-negative"
-          src="https://syncswap.xyz/images/cover-art-min.png"
+          src={bg}
           alt=""
         />
         <div className="flex flex-col box-border mx-auto w-full max-w-screen-lg pt-40">
