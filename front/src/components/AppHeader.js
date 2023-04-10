@@ -36,12 +36,12 @@ export default function AppHeader() {
                 <div className="relative">
                   <div>
                     <a
-                      href="/trade"
+                      href="/otc"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
                         <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
-                          Trade
+                          Otc
                         </p>
                       </div>
                     </a>
