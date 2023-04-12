@@ -6,7 +6,7 @@ import honypot from "./images/intro/honypot.png";
 import scroll from "./images/intro/scroll.png";
 import berachain from "./images/intro/berachain.png";
 
-export default function Intro() {
+export default function Main() {
   return (
     <div class="box-border mx-auto mb-7 min-h-screen md:min-h-auto md:h-auto md:pt-7">
       <div className="mb-[100px]">

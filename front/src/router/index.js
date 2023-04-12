@@ -5,7 +5,7 @@ import { Switch } from "../components/Switch";
 import { Exchange } from "../components/Exchange";
 import { Pools } from "../components/Pools";
 import { Found } from "../components/Found";
-import Intro from "../components/Main";
+import Main from "../components/Main";
 import WhitePaper from "../components/WhitePaper";
 
 export function BaseRoutes() {
