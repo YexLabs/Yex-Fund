@@ -18,7 +18,7 @@ export function BaseRoutes() {
           {/* <Route path="/Pools" element={<Pools />} /> */}
           {/* <Route path="/Found" element={<Found />} /> */}
           <Route path="/Main" element={<Main />} />
-          {/* <Route path="/whitepaper" element={<WhitePaper />} /> */}
+          <Route path="/whitepaper" element={<WhitePaper />} />
         </Route>
       </Routes>
     </Router>

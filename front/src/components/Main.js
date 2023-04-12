@@ -51,7 +51,7 @@ export default function Main() {
                 y=e^x Lab aligns with the mission of Scroll to accelerate the
                 mass adoption of crypto for personal sovereignty.
               </p>
-              <a href="https://drive.google.com/file/d/1Z2si06OLwnOxRGRVQE9BlF58nrCpWKHe/view">
+              <a href="/whitepaper">
                 <button className="btn  btn-outline">
                   White Paper
                   <span className="ml-2">
