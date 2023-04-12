@@ -28,24 +28,24 @@ const client = createClient(
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const BuySell = () => {
-    navigate("/Switch");
-  };
-  const ExchangeClick = () => {
-    navigate("/Exchange");
-  };
-  const PoolsClick = () => {
-    navigate("/Pools");
-  };
-  const FoundClick = () => {
-    navigate("/Found");
-  };
+  // const BuySell = () => {
+  //   navigate("/Switch");
+  // };
+  // const ExchangeClick = () => {
+  //   navigate("/Exchange");
+  // };
+  // const PoolsClick = () => {
+  //   navigate("/Pools");
+  // };
+  // const FoundClick = () => {
+  //   navigate("/Found");
+  // };
   const LogoClick = () => {
-    navigate("/intro");
+    navigate("/main");
   };
   useEffect(() => {
     if (location.pathname === "/") {
-      navigate("/intro");
+      navigate("/main");
     }
   }, []);
 
