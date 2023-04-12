@@ -22,7 +22,7 @@ export default function AppHeader() {
                 <div className=" relative">
                   <div>
                     <a
-                      href="/intro"
+                      href="/main"
                       className="text-current no-underline cursor-default"
                     >
                       <div className="cursor-pointer">
@@ -33,10 +33,24 @@ export default function AppHeader() {
                 </div>
               </div>
               <div className="flex items-center space-x-4 md:space-x-6 mb-[2px]">
-                <div className="relative">
+              <div className="relative">
                   <div>
                     <a
-                      href="/otc"
+                      href="main"
+                      class="no-underline text-current cursor-default"
+                    >
+                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                          Main
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                {/* <div className="relative">
+                  <div>
+                    <a
+                      href="#"
                       class="no-underline text-current cursor-default"
                     >
                       <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
@@ -103,7 +117,7 @@ export default function AppHeader() {
                       </div>
                     </a>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div class="flex flex-row items-center gap-6">
