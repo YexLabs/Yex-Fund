@@ -33,12 +33,13 @@ export default function Main() {
               </div>
               <div className="flex flex-col fade-in  gap-1">
                 <p className="text-lg font-medium">
-                  Seamless and efficient trading experience
+                  More efficient capital utilization. 
+                  A safer way to provide liquidity.
                 </p>
                 <p className=" w-1/2 text-left text-gray-500 mt-2">
-                  Our DeFi fund provides LPers with improved survival
-                  conditions, alpha mining opportunities, beta hedging tools,
-                  stable, deep, low-cost liquidity for the community.
+                Our DeFi fund provides LPers with improved survival 
+                conditions: mining the alpha, hedging the beta and 
+                giving a stable, deep, low-cost liquidity for the community.
                 </p>
               </div>
             </div>
@@ -46,10 +47,10 @@ export default function Main() {
 
           <div className="flex flex-col items-center mt-96 mx-2">
             <div className="flex flex-col gap-6 items-center">
-              <p className=" text-4xl font-semibold">An Aligned Mission</p>
+              <p className=" text-4xl font-semibold">Our Mission</p>
               <p className=" w-5/6 text-center">
-                y=e^x Lab aligns with the mission of Scroll to accelerate the
-                mass adoption of crypto for personal sovereignty.
+                y=e<sup>x</sup> Lab leads people to an easier 
+                and safer way to the DeFi world.
               </p>
               <a href="/whitepaper">
                 <button className="btn  btn-outline">
@@ -85,7 +86,7 @@ export default function Main() {
             <div className="flex flex-col gap-2 items-center">
               <p className=" text-4xl font-semibold">Built with the Best</p>
               <p className="  text-center">
-                Thanks to our partners and the best builders in Web3 industry
+                Thanks to our partners and the best builders in the Web3 industry
               </p>
               <div>
                 {" "}
