@@ -54,50 +54,6 @@ const App = () => {
       <WagmiConfig client={client}>
         <div className="fixed top-0 left-0 w-full h-full z-0 bg-gradient-to-r from-purple-100 to-blue-100 overflow-y-auto overflow-x-hidden">
           <AppHeader />
-          {/* <div id="" className="flex justify-between h-16">
-          <div className="flex flex-row">
-            <div className="ml-2 flex justify-center flex-col">
-              <img className="h-12 ml-1" src={logo} />
-            </div>
-            <div className="justify-center flex flex-col ml-1 text-white">
-              <div
-                className="btn btn-sm btn-ghost text-xl"
-                onClick={() => BuySell()}
-              >
-                Switch
-              </div>
-            </div>
-            <div className="justify-center flex flex-col ml-1 text-white">
-              <div
-                className="btn btn-sm btn-ghost text-xl"
-                onClick={() => ExchangeClick()}
-              >
-                Exchange
-              </div>
-            </div>
-            <div className="justify-center flex flex-col ml-1 text-white">
-              <div
-                className="btn btn-sm btn-ghost text-xl"
-                onClick={() => PoolsClick()}
-              >
-                POOLS
-              </div>
-            </div>
-            <div className="justify-center flex flex-col ml-1 text-white">
-              <div
-                className="btn btn-sm btn-ghost text-xl"
-                onClick={() => FoundClick()}
-              >
-                FUND
-              </div>
-            </div>
-          </div>
-          <div className="mr-5 justify-center flex flex-col">
-            <ConnectKitProvider>
-              <ConnectKitButton />
-            </ConnectKitProvider>
-          </div>
-        </div> */}
           <Network />
           <Outlet />
           <Footer />
